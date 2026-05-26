@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Valas Monitor</string>
+    
+    <!-- Monitor Screen -->
+    <string name="monitor_title">Monitor</string>
+    <string name="add_currency">Add Currency</string>
+    <string name="rate">Rate:</string>
+    <string name="gain">Gain:</string>
+    <string name="delete">Delete</string>
+    <string name="add_monitor_title">Add Currency to Monitor</string>
+    <string name="all_monitored">All currencies are being monitored.</string>
+    <string name="select_currency">Select Currency</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- History Screen -->
+    <string name="history_title">Transaction History</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="no_history">No transaction history yet.</string>
+    <string name="nominal">Amount:</string>
+    <string name="time">Time:</string>
+    <string name="edit">Edit</string>
+    <string name="edit_transaction">Edit Transaction</string>
+    <string name="currency">Currency</string>
+    <string name="transaction_type">Type</string>
+    <string name="buy_type">Buy (BUY)</string>
+    <string name="sell_type">Sell (SELL)</string>
+    <string name="nominal_valas">Foreign Amount</string>
+    <string name="exchange_rate">Exchange Rate (IDR)</string>
+    <string name="save">Save</string>
+    <string name="transaction_date">Transaction Date</string>
+    <string name="select_date">Select Date</string>
+    <string name="total_rupiah">Total IDR: %1$s</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="app_language">App Language</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="english">English</string>
+    <string name="app_theme">App Theme</string>
+    <string name="theme_system">System Default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="bca_rate_type">BCA Rate Type</string>
+    <string name="sync_interval">Sync Interval</string>
+    <string name="sync_1x_sehari">1x a Day (24 Hours)</string>
+    <string name="sync_2x_sehari">2x a Day (12 Hours)</string>
+    <string name="sync_4x_sehari">4x a Day (6 Hours)</string>
+    <string name="sync_8x_sehari">8x a Day (3 Hours)</string>
+    <string name="sync_24x_sehari">24x a Day (1 Hour)</string>
+    <string name="color_customization">Color Customization</string>
+    <string name="light_mode_colors">Light Mode Colors</string>
+    <string name="dark_mode_colors">Dark Mode Colors</string>
+    <string name="color_primary">Primary Color</string>
+    <string name="color_secondary">Secondary Color</string>
+    <string name="color_text">Text Color</string>
+    <string name="hex_color">HEX Code (e.g., #B5EAD7)</string>
+
+    <!-- Widget -->
+    <string name="last_refresh">Last refresh: %1$s</string>
+    <string name="empty_widget">No currencies monitored</string>
+    <string name="widget_title">Monitor Valuta Asing</string>
+    <string name="rate_direction">Rate Position</string>
+    <string name="rate_sell">Sell</string>
+    <string name="rate_buy">Buy</string>
+    <string name="monitor_title_dynamic">BCA %1$s Today</string>
+    <string name="rate_desc_erate">e-Rate: Used for digital/online foreign exchange transactions. Most practical with real-time exchange rates following the market.</string>
+    <string name="rate_desc_tt">TT Counter Rate: Used for direct transfers/deposits at bank branches/counters. Usually fixed for the day and used for large amounts.</string>
+    <string name="rate_desc_banknotes">Bank Notes Rate: Specifically used for buying and selling physical foreign currency banknotes.</string>
+    <string name="app_credits">Valas Monitor by Oktavianus Ari for Carla Hanaveli</string>
+</resources>

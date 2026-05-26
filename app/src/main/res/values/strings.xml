@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Monitor Valas</string>
+    
+    <!-- Monitor Screen -->
+    <string name="monitor_title">Monitor Valas</string>
+    <string name="add_currency">Tambah Valas</string>
+    <string name="rate">Kurs:</string>
+    <string name="gain">Gain:</string>
+    <string name="delete">Hapus</string>
+    <string name="add_monitor_title">Tambah Pantauan Valas</string>
+    <string name="all_monitored">Semua valas sudah dipantau.</string>
+    <string name="select_currency">Pilih Mata Uang</string>
+    <string name="add">Tambah</string>
+    <string name="cancel">Batal</string>
+
+    <!-- History Screen -->
+    <string name="history_title">Riwayat Transaksi</string>
+    <string name="add_transaction">Tambah Transaksi</string>
+    <string name="no_history">Belum ada riwayat transaksi.</string>
+    <string name="nominal">Nominal:</string>
+    <string name="time">Waktu:</string>
+    <string name="edit">Edit</string>
+    <string name="edit_transaction">Edit Transaksi</string>
+    <string name="currency">Mata Uang</string>
+    <string name="transaction_type">Jenis Transaksi</string>
+    <string name="buy_type">Beli (BUY)</string>
+    <string name="sell_type">Jual (SELL)</string>
+    <string name="nominal_valas">Nominal Valas</string>
+    <string name="exchange_rate">Kurs Saat Transaksi (IDR)</string>
+    <string name="save">Simpan</string>
+    <string name="transaction_date">Tanggal Transaksi</string>
+    <string name="select_date">Pilih Tanggal</string>
+    <string name="total_rupiah">Total Rupiah: %1$s</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Pengaturan</string>
+    <string name="app_language">Bahasa Aplikasi</string>
+    <string name="lang_system">Sistem Default</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="english">English</string>
+    <string name="app_theme">Tema Aplikasi</string>
+    <string name="theme_system">Sistem Default</string>
+    <string name="theme_light">Terang (Light)</string>
+    <string name="theme_dark">Gelap (Dark)</string>
+    <string name="bca_rate_type">Jenis Kurs BCA</string>
+    <string name="sync_interval">Interval Sinkronisasi</string>
+    <string name="sync_1x_sehari">1x Sehari (24 Jam)</string>
+    <string name="sync_2x_sehari">2x Sehari (12 Jam)</string>
+    <string name="sync_4x_sehari">4x Sehari (6 Jam)</string>
+    <string name="sync_8x_sehari">8x Sehari (3 Jam)</string>
+    <string name="sync_24x_sehari">24x Sehari (1 Jam)</string>
+    <string name="color_customization">Kustomisasi Warna</string>
+    <string name="light_mode_colors">Warna Mode Terang</string>
+    <string name="dark_mode_colors">Warna Mode Gelap</string>
+    <string name="color_primary">Warna Primer</string>
+    <string name="color_secondary">Warna Sekunder</string>
+    <string name="color_text">Warna Teks</string>
+    <string name="hex_color">Kode HEX (contoh: #B5EAD7)</string>
+
+    <!-- Widget -->
+    <string name="last_refresh">Terakhir update: %1$s</string>
+    <string name="empty_widget">Tidak ada valas yang dimonitor</string>
+    <string name="widget_title">Monitor Valuta Asing</string>
+    <string name="monitor_title_dynamic">Kurs %1$s BCA Hari Ini</string>
+    <string name="rate_direction">Posisi Kurs</string>
+    <string name="rate_sell">Jual (Sell)</string>
+    <string name="rate_buy">Beli (Buy)</string>
+    <string name="rate_desc_erate">Kurs e-Rate: Digunakan untuk transaksi valas secara digital/online. Paling praktis dengan nilai tukar yang berubah secara real-time mengikuti pasar.</string>
+    <string name="rate_desc_tt">Kurs TT Counter: Digunakan untuk transaksi transfer/setoran valas langsung di cabang/counter bank. Biasanya bernilai tetap dalam satu hari dan digunakan untuk transaksi dalam jumlah besar.</string>
+    <string name="rate_desc_banknotes">Kurs Bank Notes: Digunakan khusus untuk transaksi jual-beli valas dalam bentuk uang kertas fisik.</string>
+    <string name="app_credits">Valas Monitor by Oktavianus Ari for Carla Hanaveli</string>
+</resources>
