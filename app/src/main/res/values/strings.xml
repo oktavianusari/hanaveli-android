@@ -63,7 +63,8 @@
     <string name="empty_widget">Tidak ada valas yang dimonitor</string>
     <string name="widget_title">Monitor Valuta Asing</string>
     <string name="monitor_title_dynamic">Kurs %1$s BCA Hari Ini</string>
-    <string name="rate_direction">Posisi Kurs</string>
+    <string name="rate_direction">Posisi Kurs (BCA)</string>
+    <string name="emas_rate_direction">Patokan Harga Emas (Indogold)</string>
     <string name="rate_sell">Jual (Sell)</string>
     <string name="rate_buy">Beli (Buy)</string>
     <string name="rate_desc_erate">Kurs e-Rate: Digunakan untuk transaksi valas secara digital/online. Paling praktis dengan nilai tukar yang berubah secara real-time mengikuti pasar.</string>

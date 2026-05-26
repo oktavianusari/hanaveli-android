@@ -18,6 +18,9 @@ class SettingsViewModel(private val context: Context) : ViewModel() {
     private val _rateDirection = MutableStateFlow(prefs.getString("rate_direction", "jual") ?: "jual")
     val rateDirection: StateFlow<String> = _rateDirection.asStateFlow()
 
+    private val _emasRateDirection = MutableStateFlow(prefs.getString("emas_rate_direction", "jual") ?: "jual")
+    val emasRateDirection: StateFlow<String> = _emasRateDirection.asStateFlow()
+
     private val _syncInterval = MutableStateFlow(prefs.getInt("sync_interval", 60))
     val syncInterval: StateFlow<Int> = _syncInterval.asStateFlow()
     private val _themePreference = MutableStateFlow(prefs.getString("theme_preference", "system") ?: "system")
@@ -48,9 +51,15 @@ class SettingsViewModel(private val context: Context) : ViewModel() {
     private val _bcaLastUpdated = MutableStateFlow(prefs.getString("bca_last_updated", "") ?: "")
     val bcaLastUpdated: StateFlow<String> = _bcaLastUpdated.asStateFlow()
 
+    private val _pegadaianLastUpdated = MutableStateFlow(prefs.getString("pegadaian_last_updated", "") ?: "")
+    val pegadaianLastUpdated: StateFlow<String> = _pegadaianLastUpdated.asStateFlow()
+
     private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         if (key == "bca_last_updated") {
             _bcaLastUpdated.value = sharedPreferences.getString(key, "") ?: ""
+        }
+        if (key == "pegadaian_last_updated") {
+            _pegadaianLastUpdated.value = sharedPreferences.getString(key, "") ?: ""
         }
     }
 
@@ -71,6 +80,16 @@ class SettingsViewModel(private val context: Context) : ViewModel() {
     fun updateRateDirection(direction: String) {
         prefs.edit { putString("rate_direction", direction) }
         _rateDirection.value = direction
+        
+        val refreshIntent = android.content.Intent(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java).apply {
+            action = id.aiinvest.hanaveli.widget.ValasWidgetProvider.ACTION_REFRESH
+        }
+        context.sendBroadcast(refreshIntent)
+    }
+
+    fun updateEmasRateDirection(direction: String) {
+        prefs.edit { putString("emas_rate_direction", direction) }
+        _emasRateDirection.value = direction
         
         val refreshIntent = android.content.Intent(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java).apply {
             action = id.aiinvest.hanaveli.widget.ValasWidgetProvider.ACTION_REFRESH

@@ -27,6 +27,7 @@ fun SettingsScreen(viewModel: SettingsViewModel, transactionViewModel: Transacti
     val context = LocalContext.current
     val rateType by viewModel.rateType.collectAsState()
     val rateDirection by viewModel.rateDirection.collectAsState()
+    val emasRateDirection by viewModel.emasRateDirection.collectAsState()
     val syncInterval by viewModel.syncInterval.collectAsState()
     val themePreference by viewModel.themePreference.collectAsState()
     val language by viewModel.language.collectAsState()
@@ -42,6 +43,7 @@ fun SettingsScreen(viewModel: SettingsViewModel, transactionViewModel: Transacti
     var langExpanded by remember { mutableStateOf(false) }
     var rateExpanded by remember { mutableStateOf(false) }
     var directionExpanded by remember { mutableStateOf(false) }
+    var emasDirectionExpanded by remember { mutableStateOf(false) }
     var themeExpanded by remember { mutableStateOf(false) }
     var intervalExpanded by remember { mutableStateOf(false) }
 
@@ -220,6 +222,33 @@ fun SettingsScreen(viewModel: SettingsViewModel, transactionViewModel: Transacti
                         viewModel.updateRateDirection(option.first)
                         directionExpanded = false 
                         Toast.makeText(context, "Posisi kurs tersimpan", Toast.LENGTH_SHORT).show()
+                    })
+                }
+            }
+        }
+
+        // Emas Rate Direction Dropdown
+        ExposedDropdownMenuBox(
+            expanded = emasDirectionExpanded,
+            onExpandedChange = { emasDirectionExpanded = it },
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+        ) {
+            val currentEmasDirectionName = directionOptions.find { it.first == emasRateDirection }?.second ?: stringResource(R.string.rate_sell)
+            OutlinedTextField(
+                value = currentEmasDirectionName,
+                onValueChange = {},
+                readOnly = true,
+                label = { Text(stringResource(R.string.emas_rate_direction)) },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = emasDirectionExpanded) },
+                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+                modifier = Modifier.menuAnchor().fillMaxWidth()
+            )
+            ExposedDropdownMenu(expanded = emasDirectionExpanded, onDismissRequest = { emasDirectionExpanded = false }) {
+                directionOptions.forEach { option ->
+                    DropdownMenuItem(text = { Text(option.second) }, onClick = { 
+                        viewModel.updateEmasRateDirection(option.first)
+                        emasDirectionExpanded = false 
+                        Toast.makeText(context, "Patokan harga emas tersimpan", Toast.LENGTH_SHORT).show()
                     })
                 }
             }

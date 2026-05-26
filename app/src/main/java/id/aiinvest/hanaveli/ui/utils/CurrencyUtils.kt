@@ -17,6 +17,9 @@ fun getFlagEmojiForCurrency(currencyCode: String): String {
         "SEK" -> "🇸🇪"
         "SGD" -> "🇸🇬"
         "THB" -> "🇹🇭"
+        "RUB" -> "🇷🇺"
+        "KWD" -> "🇰🇼"
+        "EMAS" -> "🪙"
         else -> "🏳️"
     }
 }

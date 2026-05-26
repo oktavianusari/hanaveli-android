@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.async
+import id.aiinvest.hanaveli.data.remote.ScrapedRate
 import android.content.Context
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -73,9 +75,18 @@ class ValasRepository(
     suspend fun syncRates(rateType: String) {
         withContext(Dispatchers.IO) {
             try {
-                val scrapeResult = BcaScraper.scrapeRates()
-                val scrapedRates = scrapeResult.rates
-                val lastUpdatedStr = scrapeResult.lastUpdated
+                val bcaDeferred = async { BcaScraper.scrapeRates() }
+                val pegadaianDeferred = async { id.aiinvest.hanaveli.data.remote.PegadaianScraper.scrapeRates() }
+                
+                val bcaResult = bcaDeferred.await()
+                val pegadaianResult = pegadaianDeferred.await()
+
+                val scrapedRates = mutableMapOf<String, ScrapedRate>()
+                scrapedRates.putAll(bcaResult.rates)
+                scrapedRates.putAll(pegadaianResult.rates)
+                
+                val bcaLastUpdated = bcaResult.lastUpdated
+                val pegadaianLastUpdated = pegadaianResult.lastUpdated
                 
                 val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
                 val todayStr = SimpleDateFormat("yyyyMMdd", Locale.US).format(Date())
@@ -87,8 +98,11 @@ class ValasRepository(
                     .putString("last_sync_day", todayStr)
                     .putLong("last_sync_timestamp", System.currentTimeMillis())
                 
-                if (lastUpdatedStr.isNotEmpty()) {
-                    editor.putString("bca_last_updated", lastUpdatedStr)
+                if (bcaLastUpdated.isNotEmpty()) {
+                    editor.putString("bca_last_updated", bcaLastUpdated)
+                }
+                if (pegadaianLastUpdated.isNotEmpty()) {
+                    editor.putString("pegadaian_last_updated", pegadaianLastUpdated)
                 }
                 editor.apply()
                 
@@ -98,7 +112,8 @@ class ValasRepository(
                 val updatedCurrencies = localCurrencies.map { currency ->
                     val rateInfo = scrapedRates[currency.currency]
                     if (rateInfo != null) {
-                        val isJual = rateDirection.lowercase() == "jual"
+                        val currentPrefDirection = if (currency.currency == "EMAS") prefs.getString("emas_rate_direction", "jual") ?: "jual" else rateDirection
+                        val isJual = currentPrefDirection.lowercase() == "jual"
                         val currentRate = when (rateType.lowercase()) {
                             "e-rate" -> if (isJual) rateInfo.eRateSell else rateInfo.eRateBuy
                             "bank notes", "bank-notes" -> if (isJual) rateInfo.bankNotesSell else rateInfo.bankNotesBuy

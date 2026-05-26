@@ -24,7 +24,7 @@ fun TotalScreen(monitorViewModel: MonitorViewModel) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Total Valas") },
+                title = { Text("Total Portofolio") },
                 windowInsets = WindowInsets(0.dp)
             )
         },
@@ -96,6 +96,7 @@ fun getFlagEmoji(currencyCode: String): String {
         "KRW" -> "🇰🇷"
         "RUB" -> "🇷🇺"
         "KWD" -> "🇰🇼"
+        "EMAS" -> "🪙"
         else -> "🏳️"
     }
 }

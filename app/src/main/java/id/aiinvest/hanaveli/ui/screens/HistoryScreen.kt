@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -66,12 +67,35 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
     
     var showDialog by remember { mutableStateOf(false) }
     var editingTransaction by remember { mutableStateOf<Transaction?>(null) }
+    var sortOption by remember { mutableStateOf("date_desc") }
+    
+    val sortedTransactions = remember(transactions, sortOption) {
+        when (sortOption) {
+            "date_asc" -> transactions.sortedBy { it.timestamp }
+            "date_desc" -> transactions.sortedByDescending { it.timestamp }
+            "portfolio_asc" -> transactions.sortedBy { it.currency }
+            "portfolio_desc" -> transactions.sortedByDescending { it.currency }
+            else -> transactions.sortedByDescending { it.timestamp }
+        }
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.history_title)) },
-                windowInsets = androidx.compose.foundation.layout.WindowInsets(0.dp)
+                windowInsets = androidx.compose.foundation.layout.WindowInsets(0.dp),
+                actions = {
+                    var sortMenuExpanded by remember { mutableStateOf(false) }
+                    IconButton(onClick = { sortMenuExpanded = true }) {
+                        Icon(Icons.Filled.Menu, contentDescription = "Sort")
+                    }
+                    androidx.compose.material3.DropdownMenu(expanded = sortMenuExpanded, onDismissRequest = { sortMenuExpanded = false }) {
+                        androidx.compose.material3.DropdownMenuItem(text = { Text("Terbaru (Default)") }, onClick = { sortOption = "date_desc"; sortMenuExpanded = false })
+                        androidx.compose.material3.DropdownMenuItem(text = { Text("Terlama") }, onClick = { sortOption = "date_asc"; sortMenuExpanded = false })
+                        androidx.compose.material3.DropdownMenuItem(text = { Text("Portofolio (A-Z)") }, onClick = { sortOption = "portfolio_asc"; sortMenuExpanded = false })
+                        androidx.compose.material3.DropdownMenuItem(text = { Text("Portofolio (Z-A)") }, onClick = { sortOption = "portfolio_desc"; sortMenuExpanded = false })
+                    }
+                }
             )
         },
         floatingActionButton = {
@@ -90,7 +114,7 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
                 Text(stringResource(R.string.no_history), modifier = Modifier.padding(horizontal = 16.dp).padding(top = 16.dp))
             } else {
                 LazyColumn {
-                    items(transactions) { t ->
+                    items(sortedTransactions) { t ->
                         Card(
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
@@ -109,7 +133,8 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
                                         color = if (t.type == "BUY") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.tertiary
                                     )
                                     Text("${stringResource(R.string.nominal)} ${String.format("%,.2f", t.amount)}")
-                                    Text("${stringResource(R.string.rate)} ${String.format("%,.2f", t.rate)}")
+                                    val displayRate = if (t.currency == "EMAS") t.rate / 100 else t.rate
+                                    Text("${stringResource(R.string.rate)} ${String.format("%,.2f", displayRate)}")
                                     val dateStr = SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault()).format(Date(t.timestamp))
                                     Text("${stringResource(R.string.time)} $dateStr", style = MaterialTheme.typography.bodySmall)
                                 }
@@ -135,7 +160,17 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
         var currency by remember { mutableStateOf(editingTransaction?.currency ?: "") }
         var type by remember { mutableStateOf(editingTransaction?.type ?: "BUY") }
         var amountStr by remember { mutableStateOf(editingTransaction?.amount?.toString() ?: "") }
-        var rateStr by remember { mutableStateOf(editingTransaction?.rate?.toString() ?: "") }
+        var rateStr by remember { 
+            mutableStateOf(
+                if (editingTransaction != null) {
+                    if (editingTransaction!!.currency == "EMAS") {
+                        String.format(Locale.US, "%.0f", editingTransaction!!.rate / 100)
+                    } else {
+                        editingTransaction!!.rate.toString()
+                    }
+                } else ""
+            ) 
+        }
         
         var typeExpanded by remember { mutableStateOf(false) }
         var currencyExpanded by remember { mutableStateOf(false) }
@@ -143,7 +178,7 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
         var timestamp by remember { mutableStateOf(editingTransaction?.timestamp ?: System.currentTimeMillis()) }
         var showDatePicker by remember { mutableStateOf(false) }
         
-        val currencies = listOf("USD", "EUR", "GBP", "AUD", "CAD", "CHF", "CNY", "HKD", "JPY", "MYR", "NZD", "SAR", "SEK", "SGD", "THB")
+        val currencies = listOf("USD", "EUR", "GBP", "AUD", "CAD", "CHF", "CNY", "HKD", "JPY", "MYR", "NZD", "SAR", "SEK", "SGD", "THB", "EMAS")
         val types = listOf("BUY", "SELL")
 
         if (showDatePicker) {
@@ -232,7 +267,7 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
                     OutlinedTextField(
                         value = amountStr,
                         onValueChange = { amountStr = it },
-                        label = { Text(stringResource(R.string.nominal_valas)) },
+                        label = { Text(if (currency == "EMAS") "Jumlah (Gram)" else stringResource(R.string.nominal_valas)) },
                         placeholder = { Text("mis. 100") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
@@ -249,9 +284,10 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
                     
                     val amt = amountStr.toDoubleOrNull() ?: 0.0
                     val rt = rateStr.toDoubleOrNull() ?: 0.0
+                    val totalValue = if (currency == "EMAS") amt * rt * 100 else amt * rt
                     if (amt > 0 && rt > 0) {
                         Text(
-                            text = stringResource(R.string.total_rupiah, String.format("%,.2f", amt * rt)),
+                            text = stringResource(R.string.total_rupiah, String.format("%,.2f", totalValue)),
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.padding(bottom = 8.dp)
                         )
@@ -284,13 +320,14 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
                         }
                         
                         if (currency.isNotEmpty() && amt > 0 && rt > 0) {
+                            val rtToSave = if (currency == "EMAS") rt * 100 else rt
                             if (editingTransaction != null) {
                                 viewModel.updateTransaction(
                                     editingTransaction!!.copy(
                                         currency = currency,
                                         type = type,
                                         amount = amt,
-                                        rate = rt,
+                                        rate = rtToSave,
                                         timestamp = timestamp
                                     )
                                 )
@@ -299,7 +336,7 @@ fun HistoryScreen(viewModel: TransactionViewModel) {
                                     currency = currency,
                                     type = type,
                                     amount = amt,
-                                    rate = rt,
+                                    rate = rtToSave,
                                     timestamp = timestamp
                                 )
                             }

@@ -45,19 +45,19 @@ class ValasWidgetProvider : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.widget_refresh_button, refreshPendingIntent)
             
             val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
-            val rateTypeRaw = prefs.getString("rate_type", "e-rate") ?: "e-rate"
-            val rateType = when(rateTypeRaw.lowercase()) {
-                "e-rate" -> "e-Rate"
-                "tt counter" -> "TT Counter"
-                "bank notes" -> "Bank Notes"
-                else -> rateTypeRaw
-            }
-            val titleStr = context.getString(R.string.monitor_title_dynamic, rateType)
+            val titleStr = "Portofolio Anda Hari Ini"
             views.setTextViewText(R.id.widget_title, titleStr)
             
             val bcaLastUpdated = prefs.getString("bca_last_updated", "") ?: ""
-            if (bcaLastUpdated.isNotEmpty()) {
-                views.setTextViewText(R.id.widget_timestamp, bcaLastUpdated)
+            val pegadaianLastUpdated = prefs.getString("pegadaian_last_updated", "") ?: ""
+            
+            if (bcaLastUpdated.isNotEmpty() || pegadaianLastUpdated.isNotEmpty()) {
+                val rawBca = bcaLastUpdated.replace(Regex("(?i)^bca\\s*:?\\s*"), "").trim()
+                val bcaStr = if (rawBca.isNotEmpty()) "BCA: $rawBca" else "BCA: -"
+                val rawIndogold = pegadaianLastUpdated.replace(Regex("(?i)^indogold\\s*:?\\s*"), "").trim()
+                val indogoldStr = if (rawIndogold.isNotEmpty()) "Indogold: $rawIndogold" else "Indogold: -"
+                val combinedText = "$bcaStr\n$indogoldStr"
+                views.setTextViewText(R.id.widget_timestamp, combinedText)
             } else {
                 val lastSync = prefs.getLong("last_sync_timestamp", 0L)
                 if (lastSync > 0) {

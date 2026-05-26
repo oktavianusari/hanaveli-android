@@ -71,6 +71,7 @@ fun MonitorScreen(
 ) {
     val currencies by monitorViewModel.monitoredCurrencies.collectAsState()
     val bcaLastUpdated by settingsViewModel.bcaLastUpdated.collectAsState()
+    val pegadaianLastUpdated by settingsViewModel.pegadaianLastUpdated.collectAsState()
     val isLoading by monitorViewModel.isLoading.collectAsState()
     val rateType by settingsViewModel.rateType.collectAsState()
     
@@ -88,15 +89,7 @@ fun MonitorScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { 
-                    val formattedRate = when(rateType.lowercase()) {
-                        "e-rate" -> "e-Rate"
-                        "tt counter" -> "TT Counter"
-                        "bank notes" -> "Bank Notes"
-                        else -> rateType
-                    }
-                    Text(stringResource(R.string.monitor_title_dynamic, formattedRate)) 
-                },
+                title = { Text("Portofolio Anda Hari Ini") },
                 windowInsets = androidx.compose.foundation.layout.WindowInsets(0.dp),
                 actions = {
                     IconButton(
@@ -123,9 +116,14 @@ fun MonitorScreen(
         contentWindowInsets = androidx.compose.foundation.layout.WindowInsets(0.dp)
     ) { padding ->
         Column(modifier = Modifier.fillMaxSize().padding(padding)) {
-            if (bcaLastUpdated.isNotEmpty()) {
+            if (bcaLastUpdated.isNotEmpty() || pegadaianLastUpdated.isNotEmpty()) {
+                val rawBca = bcaLastUpdated.replace(Regex("(?i)^bca\\s*:?\\s*"), "").trim()
+                val bcaStr = if (rawBca.isNotEmpty()) "BCA: $rawBca" else "BCA: -"
+                val rawIndogold = pegadaianLastUpdated.replace(Regex("(?i)^indogold\\s*:?\\s*"), "").trim()
+                val indogoldStr = if (rawIndogold.isNotEmpty()) "Indogold: $rawIndogold" else "Indogold: -"
+                val combinedText = "$bcaStr\n$indogoldStr"
                 Text(
-                    text = bcaLastUpdated,
+                    text = combinedText,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 16.dp)
@@ -179,9 +177,10 @@ fun MonitorScreen(
                                         )
                                         val gainPercent = if (c.totalCost > 0) (c.totalGain / c.totalCost) * 100 else 0.0
                                         val gainText = if (c.totalGain >= 0) "+ Rp${String.format("%,.0f", c.totalGain).replace(',', '.')} (+${String.format("%.1f", gainPercent).replace('.', ',')}%)" else "- Rp${String.format("%,.0f", -c.totalGain).replace(',', '.')} (${String.format("%.1f", -gainPercent).replace('.', ',')}%)"
+                                        val gainLabel = if (c.totalGain >= 0) "G" else "L"
                                         val gainColor = if (c.totalGain >= 0) Color(0xFF388E3C) else Color(0xFFD32F2F)
                                         Text(
-                                            text = "G: $gainText",
+                                            text = "$gainLabel: $gainText",
                                             style = MaterialTheme.typography.bodyMedium,
                                             color = if (c.totalGain != 0.0) gainColor else MaterialTheme.colorScheme.onSurfaceVariant
                                         )
@@ -245,7 +244,7 @@ fun MonitorScreen(
     }
 
     if (showAddDialog) {
-        val availableCurrencies = listOf("USD", "SGD", "HKD", "CHF", "GBP", "AUD", "JPY", "DKK", "CAD", "EUR", "SAR", "NZD", "CNY", "SEK", "THB", "RUB", "KRW", "MYR")
+        val availableCurrencies = listOf("USD", "SGD", "HKD", "CHF", "GBP", "AUD", "JPY", "DKK", "CAD", "EUR", "SAR", "NZD", "CNY", "SEK", "THB", "RUB", "KRW", "MYR", "EMAS")
             .filter { code -> currencies.none { it.currencyCode == code } }
 
         var expanded by remember { mutableStateOf(false) }
