@@ -50,6 +50,20 @@ class ValasWidgetRemoteViewsFactory(private val context: Context) : RemoteViewsS
         val views = RemoteViews(context.packageName, R.layout.widget_list_item)
         views.setTextViewText(R.id.item_currency, "$emoji ${currency.currencyCode}")
         views.setTextViewText(R.id.item_rate, String.format("IDR %,.2f", currency.currentRate))
+
+        val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+        val appTheme = prefs.getString("app_theme", "system") ?: "system"
+        val isDark = when (appTheme) {
+            "light" -> false
+            "dark" -> true
+            else -> {
+                val currentNightMode = context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+            }
+        }
+        val textColor = androidx.core.content.ContextCompat.getColor(context, if (isDark) R.color.widget_text_dark else R.color.widget_text_light)
+        views.setTextColor(R.id.item_currency, textColor)
+        views.setTextColor(R.id.item_rate, textColor)
         
         val gainPercent = if (currency.totalCost > 0) (currency.totalGain / currency.totalCost) * 100 else 0.0
         val gainText = if (currency.totalGain >= 0) "+Rp${String.format("%,.0f", currency.totalGain).replace(',', '.')} (+${String.format("%.1f", gainPercent).replace('.', ',')}%)" else "-Rp${String.format("%,.0f", -currency.totalGain).replace(',', '.')} (${String.format("%.1f", -gainPercent).replace('.', ',')}%)"

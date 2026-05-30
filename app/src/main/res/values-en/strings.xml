@@ -60,7 +60,9 @@
     <!-- Widget -->
     <string name="last_refresh">Last refresh: %1$s</string>
     <string name="empty_widget">No currencies monitored</string>
-    <string name="widget_title">Monitor Valuta Asing</string>
+    <string name="widget_title">Foreign Exchange Monitor</string>
+    <string name="widget_phone_name">Phone Widget</string>
+    <string name="widget_big_name">Big Screen Widget</string>
     <string name="rate_direction">Rate Position (BCA)</string>
     <string name="emas_rate_direction">Gold Rate Position (Indogold)</string>
     <string name="rate_sell">Sell</string>

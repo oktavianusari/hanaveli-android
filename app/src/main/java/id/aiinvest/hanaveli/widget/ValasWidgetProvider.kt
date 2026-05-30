@@ -45,6 +45,27 @@ class ValasWidgetProvider : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.widget_refresh_button, refreshPendingIntent)
             
             val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+            val appTheme = prefs.getString("app_theme", "system") ?: "system"
+            
+            val isDark = when (appTheme) {
+                "light" -> false
+                "dark" -> true
+                else -> {
+                    val currentNightMode = context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                    currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+                }
+            }
+
+            if (isDark) {
+                views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_bg_rounded_dark)
+                views.setTextColor(R.id.widget_title, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_dark))
+                views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_dark))
+            } else {
+                views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_bg_rounded_light)
+                views.setTextColor(R.id.widget_title, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
+                views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
+            }
+
             val titleStr = "Portofolio Anda Hari Ini"
             views.setTextViewText(R.id.widget_title, titleStr)
             

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="widget_text">#121212</color>
-    <color name="widget_background">#FFFFFF</color>
+    <color name="widget_background">#E6FFFFFF</color>
     <color name="widget_divider">#EEEEEE</color>
+    <color name="widget_border">#26000000</color>
+    <color name="widget_text_light">#121212</color>
+    <color name="widget_bg_light">#E6FFFFFF</color>
+    <color name="widget_divider_light">#EEEEEE</color>
+    <color name="widget_border_light">#26000000</color>
+
+    <color name="widget_text_dark">#FFFFFF</color>
+    <color name="widget_bg_dark">#151517</color>
+    <color name="widget_divider_dark">#333333</color>
+    <color name="widget_border_dark">#26FFFFFF</color>
+    <color name="widget_item_bg_green">#E0F2F1</color>
+    <color name="widget_item_bg_red">#FFEBEE</color>
+    <color name="widget_item_border_green">#4CAF50</color>
+    <color name="widget_item_border_red">#E53935</color>
+    <color name="pill_green">#388E3C</color>
+    <color name="pill_red">#D32F2F</color>
 </resources>

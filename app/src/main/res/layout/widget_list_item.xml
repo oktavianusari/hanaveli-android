@@ -25,7 +25,8 @@
         android:textSize="13sp"
         android:textStyle="bold"
         android:textColor="@color/widget_text"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:ellipsize="end" />
 
     <TextView
         android:id="@+id/item_percent"

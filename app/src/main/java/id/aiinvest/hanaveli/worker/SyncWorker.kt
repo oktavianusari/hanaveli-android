@@ -8,6 +8,7 @@ import androidx.work.WorkerParameters
 import id.aiinvest.hanaveli.data.local.AppDatabase
 import id.aiinvest.hanaveli.data.repository.ValasRepository
 import id.aiinvest.hanaveli.widget.ValasWidgetProvider
+import id.aiinvest.hanaveli.widget.BigValasWidgetProvider
 import id.aiinvest.hanaveli.R
 
 class SyncWorker(
@@ -36,8 +37,18 @@ class SyncWorker(
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
             }
             context.sendBroadcast(updateIntent)
-            
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list)
+
+            // Update Big Screen Widget
+            val bigAppWidgetIds = appWidgetManager.getAppWidgetIds(
+                ComponentName(context, BigValasWidgetProvider::class.java)
+            )
+            val bigUpdateIntent = android.content.Intent(context, BigValasWidgetProvider::class.java).apply {
+                action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, bigAppWidgetIds)
+            }
+            context.sendBroadcast(bigUpdateIntent)
+            appWidgetManager.notifyAppWidgetViewDataChanged(bigAppWidgetIds, R.id.widget_grid)
             Result.success()
         } catch (e: Exception) {
             Result.retry()

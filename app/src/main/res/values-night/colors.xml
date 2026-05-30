@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="widget_text">#FFFFFF</color>
-    <color name="widget_background">#121212</color>
+    <color name="widget_background">#151517</color>
     <color name="widget_divider">#333333</color>
+    <color name="widget_border">#26FFFFFF</color>
+    <color name="widget_item_bg_green">#142F18</color>
+    <color name="widget_item_bg_red">#2F1414</color>
+    <color name="widget_item_border_green">#2E7D32</color>
+    <color name="widget_item_border_red">#B71C1C</color>
+    <color name="pill_green">#2E7D32</color>
+    <color name="pill_red">#B71C1C</color>
 </resources>
