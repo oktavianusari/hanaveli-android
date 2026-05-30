@@ -157,6 +157,21 @@ fun SettingsScreen(viewModel: SettingsViewModel, transactionViewModel: Transacti
                         viewModel.updateTheme(option.first)
                         themeExpanded = false 
                         Toast.makeText(context, "Pengaturan tema tersimpan", Toast.LENGTH_SHORT).show()
+                        
+                        val appWidgetManager = android.appwidget.AppWidgetManager.getInstance(context)
+                        val intent1 = android.content.Intent(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java).apply {
+                            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                            val ids = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java))
+                            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                        }
+                        context.sendBroadcast(intent1)
+
+                        val intent2 = android.content.Intent(context, id.aiinvest.hanaveli.widget.BigValasWidgetProvider::class.java).apply {
+                            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                            val ids = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, id.aiinvest.hanaveli.widget.BigValasWidgetProvider::class.java))
+                            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                        }
+                        context.sendBroadcast(intent2)
                     })
                 }
             }
