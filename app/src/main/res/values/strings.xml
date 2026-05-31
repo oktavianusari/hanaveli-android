@@ -63,7 +63,8 @@
     <string name="empty_widget">Tidak ada valas yang dimonitor</string>
     <string name="widget_title">Monitor Valuta Asing</string>
     <string name="widget_phone_name">Phone Widget</string>
-    <string name="widget_big_name">Big Screen Widget</string>
+    <string name="widget_big_name">Big Screen Vertical</string>
+    <string name="widget_big_horizontal_name">Big Screen Horizontal</string>
     <string name="monitor_title_dynamic">Kurs %1$s BCA Hari Ini</string>
     <string name="rate_direction">Posisi Kurs (BCA)</string>
     <string name="emas_rate_direction">Patokan Harga Emas (Indogold)</string>

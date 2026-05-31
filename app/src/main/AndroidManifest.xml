@@ -53,5 +53,18 @@
             android:name=".widget.BigWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <receiver
+            android:name=".widget.BigHorizontalWidgetProvider"
+            android:label="@string/widget_big_horizontal_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="id.aiinvest.hanaveli.widget.ACTION_REFRESH_HORIZONTAL" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_big_horizontal_info" />
+        </receiver>
+
     </application>
 </manifest>

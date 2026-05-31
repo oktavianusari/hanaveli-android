@@ -61,7 +61,10 @@ class TransactionViewModel(
                 }
                 
                 context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                    outputStream.write(jsonArray.toString(4).toByteArray())
+                    java.io.BufferedWriter(java.io.OutputStreamWriter(outputStream, Charsets.UTF_8)).use { writer ->
+                        writer.write(jsonArray.toString(4))
+                        writer.flush()
+                    }
                 }
                 
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {

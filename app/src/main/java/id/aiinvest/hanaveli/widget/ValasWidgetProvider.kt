@@ -47,21 +47,35 @@ class ValasWidgetProvider : AppWidgetProvider() {
             val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
             val appTheme = prefs.getString("app_theme", "system") ?: "system"
             
-            val isDark = when (appTheme) {
-                "light" -> false
-                "dark" -> true
-                else -> {
-                    val currentNightMode = context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                    currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+            val isOverride = prefs.getBoolean("override_widget_color", false)
+
+            var finalBgColor = android.graphics.Color.parseColor("#151517")
+            val isDark = if (isOverride) {
+                val hex = prefs.getString("widget_bg_hex", "#000000") ?: "#000000"
+                val opacity = prefs.getFloat("widget_opacity", 0.5f)
+                val parsedColor = try { android.graphics.Color.parseColor(hex) } catch(e: Exception) { android.graphics.Color.BLACK }
+                val alphaInt = (opacity * 255).toInt()
+                finalBgColor = (parsedColor and 0x00FFFFFF) or (alphaInt shl 24)
+                androidx.core.graphics.ColorUtils.calculateLuminance(finalBgColor) < 0.5
+            } else {
+                val darkTheme = when (appTheme) {
+                    "dark" -> true
+                    "light" -> false
+                    else -> {
+                        val currentNightMode = context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                        currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+                    }
                 }
+                finalBgColor = if (darkTheme) android.graphics.Color.parseColor("#151517") else android.graphics.Color.parseColor("#FFFFFF")
+                darkTheme
             }
 
+            views.setInt(R.id.widget_bg_shape, "setColorFilter", finalBgColor)
+
             if (isDark) {
-                views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_bg_rounded_dark)
                 views.setTextColor(R.id.widget_title, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_dark))
                 views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_dark))
             } else {
-                views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_bg_rounded_light)
                 views.setTextColor(R.id.widget_title, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
                 views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
             }

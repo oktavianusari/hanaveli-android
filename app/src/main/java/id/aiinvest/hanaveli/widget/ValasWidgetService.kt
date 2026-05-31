@@ -53,12 +53,22 @@ class ValasWidgetRemoteViewsFactory(private val context: Context) : RemoteViewsS
 
         val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
         val appTheme = prefs.getString("app_theme", "system") ?: "system"
-        val isDark = when (appTheme) {
-            "light" -> false
-            "dark" -> true
-            else -> {
-                val currentNightMode = context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        val isOverride = prefs.getBoolean("override_widget_color", false)
+        val isDark = if (isOverride) {
+            val hex = prefs.getString("widget_bg_hex", "#000000") ?: "#000000"
+            val opacity = prefs.getFloat("widget_opacity", 0.5f)
+            val parsedColor = try { android.graphics.Color.parseColor(hex) } catch(e: Exception) { android.graphics.Color.BLACK }
+            val alphaInt = (opacity * 255).toInt()
+            val finalBgColor = (parsedColor and 0x00FFFFFF) or (alphaInt shl 24)
+            androidx.core.graphics.ColorUtils.calculateLuminance(finalBgColor) < 0.5
+        } else {
+            when (appTheme) {
+                "light" -> false
+                "dark" -> true
+                else -> {
+                    val currentNightMode = context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                    currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+                }
             }
         }
         val textColor = androidx.core.content.ContextCompat.getColor(context, if (isDark) R.color.widget_text_dark else R.color.widget_text_light)

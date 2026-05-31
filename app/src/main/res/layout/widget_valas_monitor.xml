@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_root"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/widget_bg_rounded"
-    android:padding="12dp">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/widget_bg_shape"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/widget_bg_rounded_dark"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:id="@+id/widget_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -71,4 +81,5 @@
         android:textColor="#AAAAAA"
         android:visibility="gone"/>
 
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>

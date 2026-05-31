@@ -9,6 +9,7 @@ import id.aiinvest.hanaveli.data.local.AppDatabase
 import id.aiinvest.hanaveli.data.repository.ValasRepository
 import id.aiinvest.hanaveli.widget.ValasWidgetProvider
 import id.aiinvest.hanaveli.widget.BigValasWidgetProvider
+import id.aiinvest.hanaveli.widget.BigHorizontalWidgetProvider
 import id.aiinvest.hanaveli.R
 
 class SyncWorker(
@@ -49,6 +50,18 @@ class SyncWorker(
             }
             context.sendBroadcast(bigUpdateIntent)
             appWidgetManager.notifyAppWidgetViewDataChanged(bigAppWidgetIds, R.id.widget_grid)
+            
+            // Update Big Screen Horizontal Widget
+            val bigHorizontalAppWidgetIds = appWidgetManager.getAppWidgetIds(
+                ComponentName(context, BigHorizontalWidgetProvider::class.java)
+            )
+            val bigHorizontalUpdateIntent = android.content.Intent(context, BigHorizontalWidgetProvider::class.java).apply {
+                action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, bigHorizontalAppWidgetIds)
+            }
+            context.sendBroadcast(bigHorizontalUpdateIntent)
+            appWidgetManager.notifyAppWidgetViewDataChanged(bigHorizontalAppWidgetIds, R.id.widget_grid)
+            
             Result.success()
         } catch (e: Exception) {
             Result.retry()

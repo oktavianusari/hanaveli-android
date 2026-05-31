@@ -63,6 +63,48 @@ class SettingsViewModel(private val context: Context) : ViewModel() {
         }
     }
 
+    private val _overrideWidgetColor = MutableStateFlow(prefs.getBoolean("override_widget_color", false))
+    val overrideWidgetColor: StateFlow<Boolean> = _overrideWidgetColor.asStateFlow()
+
+    private val _widgetBgHex = MutableStateFlow(prefs.getString("widget_bg_hex", "#000000") ?: "#000000")
+    val widgetBgHex: StateFlow<String> = _widgetBgHex.asStateFlow()
+
+    private val _widgetOpacity = MutableStateFlow(prefs.getFloat("widget_opacity", 0.5f))
+    val widgetOpacity: StateFlow<Float> = _widgetOpacity.asStateFlow()
+
+    fun updateWidgetSettings(override: Boolean, bgHex: String, opacity: Float) {
+        prefs.edit {
+            putBoolean("override_widget_color", override)
+            putString("widget_bg_hex", bgHex)
+            putFloat("widget_opacity", opacity)
+        }
+        _overrideWidgetColor.value = override
+        _widgetBgHex.value = bgHex
+        _widgetOpacity.value = opacity
+
+        val appWidgetManager = android.appwidget.AppWidgetManager.getInstance(context)
+        val intent1 = android.content.Intent(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java).apply {
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val ids = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java))
+            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        context.sendBroadcast(intent1)
+
+        val intent2 = android.content.Intent(context, id.aiinvest.hanaveli.widget.BigValasWidgetProvider::class.java).apply {
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val ids = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, id.aiinvest.hanaveli.widget.BigValasWidgetProvider::class.java))
+            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        context.sendBroadcast(intent2)
+
+        val intent3 = android.content.Intent(context, id.aiinvest.hanaveli.widget.BigHorizontalWidgetProvider::class.java).apply {
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val ids = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, id.aiinvest.hanaveli.widget.BigHorizontalWidgetProvider::class.java))
+            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        context.sendBroadcast(intent3)
+    }
+
     init {
         prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
     }

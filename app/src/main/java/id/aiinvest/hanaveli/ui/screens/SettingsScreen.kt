@@ -32,6 +32,10 @@ fun SettingsScreen(viewModel: SettingsViewModel, transactionViewModel: Transacti
     val themePreference by viewModel.themePreference.collectAsState()
     val language by viewModel.language.collectAsState()
     
+    val overrideWidgetColor by viewModel.overrideWidgetColor.collectAsState()
+    val widgetBgHex by viewModel.widgetBgHex.collectAsState()
+    val widgetOpacity by viewModel.widgetOpacity.collectAsState()
+    
     val lightPrimary by viewModel.lightPrimaryHex.collectAsState()
     val lightSecondary by viewModel.lightSecondaryHex.collectAsState()
     val lightText by viewModel.lightTextHex.collectAsState()
@@ -92,7 +96,11 @@ fun SettingsScreen(viewModel: SettingsViewModel, transactionViewModel: Transacti
             Text("Pencadangan Data", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 16.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Button(
-                    onClick = { exportLauncher.launch("valas_monitor_backup_${System.currentTimeMillis()}.json") },
+                    onClick = { 
+                        val dateFormat = java.text.SimpleDateFormat("ddMMyyyy_HHmma", java.util.Locale.US)
+                        val fileName = "vm_${dateFormat.format(java.util.Date())}.json".lowercase()
+                        exportLauncher.launch(fileName)
+                    },
                     modifier = Modifier.weight(1f)
                 ) {
                     Text("Ekspor Data")
@@ -175,6 +183,66 @@ fun SettingsScreen(viewModel: SettingsViewModel, transactionViewModel: Transacti
                     })
                 }
             }
+        }
+
+        var tempOverride by remember(overrideWidgetColor) { mutableStateOf(overrideWidgetColor) }
+        var tempWidgetBgHex by remember(widgetBgHex) { mutableStateOf(widgetBgHex) }
+        var tempWidgetOpacity by remember(widgetOpacity) { mutableStateOf(widgetOpacity) }
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Kustomisasi Warna Widget",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
+            Text("Override Widget Color", modifier = Modifier.weight(1f))
+            Switch(checked = tempOverride, onCheckedChange = { tempOverride = it })
+        }
+        
+        if (tempOverride) {
+            OutlinedTextField(
+                value = tempWidgetBgHex, 
+                onValueChange = { tempWidgetBgHex = it }, 
+                label = { Text("Widget Background Color (Hex)") }, 
+                placeholder = { Text("#000000") }, 
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+            )
+            
+            Text("Widget Opacity: ${(tempWidgetOpacity * 100).toInt()}%", modifier = Modifier.padding(bottom = 4.dp))
+            Slider(
+                value = tempWidgetOpacity,
+                onValueChange = { tempWidgetOpacity = it },
+                valueRange = 0f..1f,
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+            )
+            
+            val widgetPresets = listOf("#000000", "#FFFFFF", "#151517", "#EFEFF4", "#1E88E5", "#43A047")
+            Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
+                widgetPresets.forEach { hex ->
+                    Box(
+                        modifier = Modifier
+                            .size(32.dp)
+                            .background(androidx.compose.ui.graphics.Color(android.graphics.Color.parseColor(hex)), shape = androidx.compose.foundation.shape.CircleShape)
+                            .clickable { tempWidgetBgHex = hex }
+                    )
+                }
+            }
+        }
+        
+        Text(
+            text = "Catatan: Jika Override OFF, widget mengikuti pengaturan tema (Light/Dark/System). Jika ON, widget menggunakan warna dan transparansi kustom di atas.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        
+        Button(onClick = { 
+            viewModel.updateWidgetSettings(tempOverride, tempWidgetBgHex, tempWidgetOpacity)
+            Toast.makeText(context, "Pengaturan Widget Tersimpan", Toast.LENGTH_SHORT).show()
+        }, modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)) {
+            Text("Simpan Pengaturan Widget")
         }
 
         // Rate Type Dropdown
