@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/widget_bg_shape"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/widget_bg_rounded_dark"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:id="@+id/widget_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/widget_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Portofolio Anda Hari Ini"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/widget_text" />
+
+        <TextView
+            android:id="@+id/widget_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/widget_title"
+            android:layout_marginTop="4dp"
+            android:textSize="13sp"
+            android:textColor="#888888" />
+
+        <ImageButton
+            android:id="@+id/widget_refresh_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_popup_sync"
+            android:tint="@color/widget_text"
+            android:contentDescription="Refresh" />
+
+        <ProgressBar
+            android:id="@+id/widget_progress_bar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="4dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:indeterminateTint="@color/widget_text" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/widget_grid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:numColumns="4"
+        android:horizontalSpacing="8dp"
+        android:verticalSpacing="8dp"
+        android:stretchMode="columnWidth" />
+
+    <TextView
+        android:id="@+id/widget_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/empty_widget"
+        android:textColor="#AAAAAA"
+        android:visibility="gone"/>
+
+    </LinearLayout>
+</FrameLayout>

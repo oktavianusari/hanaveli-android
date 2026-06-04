@@ -1,0 +1,2335 @@
+<!DOCTYPE HTML>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="id"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="id"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="id"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="id">
+<!--<![endif]-->
+
+<head>
+    <style>
+        /*banner*/
+        .banner{
+          height:11rem;
+          display: none;
+      }
+
+      .banner-wrapper{
+          width:100%;
+          height:12rem;
+          z-index: 9999;
+          background:white;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: nowrap;
+          box-sizing: border-box;
+          flex-direction: column;
+          text-align: center;
+      }
+
+      .banner .ml-4{
+          margin-left: 0 !important;
+          font-size: 12px;
+          padding-top:10px;
+          padding-bottom:5px;
+      }
+
+      .banner .mr-4{
+          margin-right: 0 !important;
+          margin-bottom:20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap:20px;
+      }
+
+      .banner .mr-4 img{
+          max-height: 40px;
+          width: 100%:;
+      }
+
+      .banner .mr-4 button.dismiss-banner{
+          border:none;
+          background:transparent;
+          right: 1rem;
+          margin-top: -5rem;
+      }
+
+      .footer-icon-group{
+          display: flex;
+          flex-wrap: wrap;
+          padding:0;
+          gap:20px;
+          width: 100%;
+          justify-content: center;
+      }
+
+      .footer-icon-group img{
+          width: auto;
+          height: 50px;
+      }
+      /*end banner*/
+
+        @media (min-width: 768px){
+          .footer-icon-group{
+            flex-wrap: nowrap;
+            gap:0px;
+            justify-content: flex-start;
+        }
+
+        .banner{
+            height: 7rem;
+        }
+
+        .banner-wrapper{
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            height:7rem;
+            flex-direction: row;
+            text-align: left;
+        }
+
+        .banner .ml-4{
+            margin-left: 1.5rem !important;
+            font-size: 16px;
+            padding-top:0;
+            padding-bottom:0;
+        }
+
+        .banner .mr-4{
+            margin-right: 4rem !important;
+            margin-bottom:0px;
+        }
+
+        .banner .mr-4 img{
+            max-height: 50px;
+        }
+
+        .banner .mr-4 button.dismiss-banner{
+            right: 10px;
+            margin-top: 0px;
+        }
+    }
+    </style>
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            let f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MWPG48');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-727107970"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-727107970');
+    </script>
+  
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W4BP2GKCGC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-W4BP2GKCGC');
+    </script>
+
+    <!-- Moengage -->
+    <!-- <script type="text/javascript">
+        (function(i,s,o,g,r,a,m,n){i.moengage_object=r;t={};q=function(f){return function(){(i.moengage_q=i.moengage_q||[]).push({f:f,a:arguments})}};f=['track_event','add_user_attribute','add_first_name','add_last_name','add_email','add_mobile','add_user_name','add_gender','add_birthday','destroy_session','add_unique_user_id','moe_events','call_web_push','track','location_type_attribute'],h={onsite:["getData","registerCallback"]};for(k in f){t[f[k]]=q(f[k])}for(k in h)for(l in h[k]){null==t[k]&&(t[k]={}),t[k][h[k][l]]=q(k+"."+h[k][l])}a=s.createElement(o);m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);i.moe=i.moe||function(){n=arguments[0];return t};a.onload=function(){if(n){i[r]=moe(n)}}})(window,document,'script','https://cdn.moengage.com/webpush/moe_webSdk.min.latest.js','Moengage')
+
+        Moengage = moe({
+            app_id:"94YVOF3UGCVX4E259ISVGVL7",
+            debug_logs: 0
+        });
+    </script> -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window,
+            document, 'script', '//connect.facebook.net/en_US/fbevents.js');
+
+        fbq('init', '350827178440390');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=350827178440390&ev=PageView&noscript=1" alt="image"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1110185592858737');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1110185592858737&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- support IE browser 8 or 9 -->
+    <meta http-equiv="Content-Type" content="text/html" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- responsive width -->
+    
+    
+    <!-- <meta name="keywords" content=""> -->
+    <meta http-equiv="content-language" content="EN,IN" />
+    <link rel="canonical" href="https://www.indogold.id/harga-emas-hari-ini" />    <meta name="author" content="IndoGold" />
+    <meta name="copyright" content="Copyright 2017 IndoGold" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="all,index,follow">
+    <meta name="revisit-after" content="2 days">
+    <meta name="rating" content="general">
+    <link rel="icon" href="https://www.indogold.id/favicon.ico">
+    <link rel="apple-touch-icon" href="https://www.indogold.id/favicon.ico" />
+    <link rel="alternate" type="application/rss+xml" title="IndoGold &raquo; Feed" href="https://www.indogold.id/feed/" />
+
+    
+        
+    <title>Price List : Beli Logam Mulia | Cek Harga Emas Hari ini | IndoGold Rencana Emas</title>
+    <meta name="description" content="Harga Emas Hari Ini – Selasa, 26 Mei 2026. Harga Beli Rp. 2,603,286, Harga Jual/Buyback Rp. 2,537,500 By IndoGold" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "WebSite",
+            "name": "Indogold",
+            "url": "https://www.indogold.id/",
+            "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+</script>
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Corporation",
+        "name": "PT IndoGold Makmur Sejahtera",
+        "alternateName": "Indogold",
+        "url": "https://www.indogold.id/",
+        "logo": "https://www.indogold.id/",
+        "sameAs": [
+        "https://www.facebook.com/IndoGold/",
+        "https://twitter.com/IndoGoldID",
+        "https://www.instagram.com/IndoGoldID/",
+        "https://www.youtube.com/channel/UCEuTiVI9x7M2ZSh99x23zMg"
+        ]
+    }
+</script>
+
+<!--Default OG Meta tags-->
+<meta property="og:site_name" content="indogold.id" />
+<!-- Specific Page OG Meta-->
+<meta property="og:type" content="product" />
+<meta property="og:title" content="Price List : Beli Logam Mulia | Cek Harga Emas Hari ini | IndoGold Rencana Emas : Beli Logam Mulia | Cek Harga Emas Hari ini | IndoGold Rencana Emas" />
+<meta property="og:image" content="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/IndoGold-Vertical-Black.png" />
+<meta property="og:url" content="https://www.indogold.id/harga-emas-hari-ini" />
+<meta property="og:description" content="Harga Emas Hari Ini – Selasa, 26 Mei 2026. Harga Beli Rp. 2,603,286, Harga Jual/Buyback Rp. 2,537,500 By IndoGold" />
+<meta property="og:site_name" content="IndoGold">
+
+<!-- css v3 -->
+<link class="css-preload" rel="stylesheet" rel="preload" href="https://www.indogold.id/template/css/bootstrap.min.css" media="all" as="style">
+<link class="css-preload" rel="stylesheet" rel="preload" type="text/css" href="https://www.indogold.id/template/css/stylev5.min.css" media="all" as="style">
+<link class="css-preload" rel="stylesheet" rel="preload" type="text/css" href="https://www.indogold.id/js/owl-carousel/owl.carousel.css" media="screen" as="style"/>
+<link class="css-preload" rel="stylesheet" rel="preload" type="text/css" href="https://www.indogold.id/js/owl-carousel/owl.theme.css" media="screen" as="style"/>
+<link class="css-preload" rel="stylesheet" rel="preload" type="text/css" href="https://www.indogold.id/template/css/custom-bootstrap4.css" media="all" as="style">
+<link class="css-preload" rel="stylesheet" rel="preload" href="https://www.indogold.id/template/font-awesome-5/css/all.min.css" media="all" as="style">
+<link class="css-preload" rel="shortcut icon" type="text/css" href="https://www.indogold.id/template/Assets/Logo/IndogoldIcon.png" media="all" >
+<link class="css-preload" rel="stylesheet" rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap" media="all" as="style">
+<link class="css-preload" href="https://www.indogold.id/css/jquery.qtip.min.css" rel="stylesheet" rel="preload" type="text/css" media="all" as="style"/>
+<link class="css-preload" href="https://www.indogold.id/css/jquery-ui-timepicker-addon.css" rel="stylesheet" rel="preload" type="text/css" media="screen, projection" as="style"/>
+<link class="css-preload" rel="stylesheet" rel="preload" href="https://www.indogold.id/css/introjs.css" media="screen" as="style">
+<link class="css-preload" rel="stylesheet" rel="preload" type="text/css" href="https://www.indogold.id/template/daterange/daterangepicker.css" media="screen" as="style"/>
+
+<!-- script load css -->
+<script>
+    const css = document.getElementsByClassName("css-preload");
+    for(let i = 0; i < css.length; i++){
+      css[i].setAttribute("onload","this.rel='stylesheet'")
+  }
+</script>
+
+<noscript>
+    <link rel="stylesheet" href="https://www.indogold.id/template/css/bootstrap.css" media="all">
+    <link rel="stylesheet" type="text/css" href="https://www.indogold.id/template/css/stylev5.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="https://www.indogold.id/js/owl-carousel/owl.carousel.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="https://www.indogold.id/js/owl-carousel/owl.theme.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="https://www.indogold.id/template/css/custom-bootstrap4.css" media="all">
+    <link rel="stylesheet" href="https://www.indogold.id/template/font-awesome-5/css/all.min.css" media="all">
+    <link rel="shortcut icon" type="text/css" href="https://www.indogold.id/template/Assets/Logo/IndogoldIcon.png" media="all" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap" media="all">
+    <link href="https://www.indogold.id/css/jquery.qtip.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="https://www.indogold.id/css/jquery.qtip.min.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="https://www.indogold.id/css/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="https://www.indogold.id/css/introjs.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="https://www.indogold.id/template/daterange/daterangepicker.css"/>
+</noscript>
+<!-- end load css -->
+
+<!-- load script -->
+<script src="https://www.indogold.id/template/js/jquery-3.2.1.min.js" media="all"></script>
+<script src="https://www.indogold.id/template/js/jquery.min.js"></script>
+<script defer src="https://www.indogold.id/js/highstock.js"></script>
+<script defer src="https://www.indogold.id/js/exporting.js"></script>
+<script defer src="https://www.indogold.id/js/autocomplete-jquery-ui.min.js"></script>
+<script defer src="https://www.indogold.id/template/daterange/moment.min.js"></script>
+<script defer src="https://www.indogold.id/template/daterange/daterangepicker.min.js"></script>
+<script defer src="https://www.indogold.id/template/js/jquery.cycle2.js" media="all"></script>
+<script defer src="https://www.indogold.id/js/jquery.qtip.min.js"></script>
+<script defer src="https://www.indogold.id/js/CleanNumeric.js"></script>
+<script defer src="https://www.indogold.id/js/CleanNumericForBuySell.js"></script>
+<script defer src="https://www.indogold.id/js/timepicker/jquery-ui-timepicker-addon.js"></script>
+<script defer src="https://www.indogold.id/js/timepicker/jquery-ui-sliderAccess.js"></script>
+<!-- end script -->
+
+<script type="text/javascript">
+    function checkCookieIntro() {
+        let cookie = getCookie("mySite");
+        if (cookie == null || cookie == "") {
+            setCookie("mySite", "1", 90);
+            runIntro(); 
+        }
+    }
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+
+//untuk keperluan jam server
+var serverDate;
+
+function getServerDate() {
+    serverDate = new Date(1779787654319); //server date and time, change server-side code accordingly
+}
+
+function clocktick() {
+    serverDate.setSeconds(serverDate.getSeconds() + 1);
+    let min = serverDate.getMinutes();
+    if (min < 10) min = "0" + min;
+    let sec = serverDate.getSeconds();
+    if (sec < 10) sec = "0" + sec;
+    $("#sidebarservertime").html(serverDate.getHours() + ":" + min + ":" + sec);
+    $("#servertime").html(serverDate.getHours() + ":" + min + ":" + sec);
+}
+
+getServerDate();
+setInterval("clocktick()", 1000);
+//untuk keperluan jam server
+
+$(document).ready(function() {
+    $('.clearme').focus(
+        function() {
+            if (this.value == this.defaultValue) {
+                this.value = '';
+            }
+        }
+        );
+    $('.clearme').blur(
+        function() {
+            if (this.value == '') {
+                this.value = this.defaultValue;
+            }
+        }
+        );
+
+    let datadate = $(".btndate");
+    datadate.datepicker({
+        dateFormat: "yy-mm-dd",
+        timeFormat: '',
+        showHour: false,
+        showMinute: false,
+        showTime: false,
+        alwaysSetTime: false
+    });
+
+});
+
+function changepage(formid, paging, replace) {
+    let page = paging.href;
+    let pagen = page.replace(replace, '');
+    $('[name=page]').val(pagen)
+    $("#" + formid).submit();
+}
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function() {
+    window.onscroll = function() {
+        if ($(this).scrollTop() > 100) {
+            $('.scrollup').fadeIn();
+        } else {
+            $('.scrollup').fadeOut();
+        }
+    }
+
+    $('.scrollup').click(function() {
+        $("html, body").animate({
+            scrollTop: 0
+        }, 1000);
+        return false;
+    });
+});
+//]]>
+</script>
+
+<!-- HighChart -->
+<script type="text/javascript">
+//<![CDATA[
+let optHighChart = {
+    colors: ["#ffffff", "#FF0000", "#D45900", "#00BAF0", "#3B5BA1"],
+    chart: {
+        renderTo: 'container',
+        backgroundColor: 'transparent', 
+        type: 'spline', 
+        plotShadow: true,
+        borderRadius: 0,
+        style: {
+            fontSize: '16px' 
+        }
+    },
+    title: {
+        text: null,
+    },
+    credits: {
+        enabled: false
+    },
+    legend: {
+        enabled: false
+    },
+    tooltip: {
+        formatter: function() {
+            return '' + this.series.name + ' ' +
+            Highcharts.dateFormat('Tanggal : %e %b %Y', this.x) + ' Rp. ' + Highcharts.numberFormat(this.y, 0) + '';
+        }
+    },
+    exporting: {
+        buttons: {
+            exportButton: {
+                enabled: false
+            },
+            printButton: {
+                enabled: false
+            }
+        }
+    },
+    xAxis: {
+        type: 'datetime'
+    },
+    yAxis: {
+        opposite: true,
+        title: {
+            text: null
+        }
+    }
+};
+
+$(document).ready(function(){
+    if (document.getElementById('container') != undefined)
+        setHighChartjs('https://www.indogold.id/ajax/chart_interval/GOLD/10');
+});
+
+function setHighChartjs(jsonurl){
+    $.ajax({
+        url: jsonurl,
+        type: 'GET',
+        dataType: 'json', 
+        success: function(res) {
+            optHighChart.series = res;
+            let chart = new Highcharts.Chart(optHighChart);
+            chart.series[0].graph.attr({
+                stroke: '#ffdf00'
+            });
+        }
+    });
+}
+
+//]]>
+</script>
+
+<!-- HighChart -->
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function() {
+    $("a.fancy-login").fancybox({
+        fitToView: true,
+        autoSize: true,
+        closeClick: false,
+        openEffect: 'elastic',
+        closeEffect: 'none',
+        openSpeed: 'normal',
+        scrolling: 'no',
+        padding: 0
+    });
+    $("a.fancy-sertifikat").fancybox({
+        closeClick: false,
+        openEffect: 'elastic',
+        closeEffect: 'none',
+        openSpeed: 'normal',
+        scrolling: 'no',
+        padding: 0
+    });
+});
+//]]>
+</script>
+
+<script type="text/javascript">
+</script>
+<script id="mcjs">
+    ! function(c, h, i, m, p) {
+        m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p)
+    }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/64c16577c128e39a8a3a0f212/277bfeb6d23c1e4ffead698d6.js");
+</script>
+
+<!-- Tiktok Pixel 31 Jan 2023 start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+
+  ttq.load('CFCBTCBC77U0H42CREQ0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- Tiktok Pixel 31 Jan 2023 end -->
+
+<!-- Tiktok Pixel 23 Nov 2023 start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+
+  ttq.load('CLFHEDRC77U8PKBJTBC0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- Tiktok Pixel 23 Nov 2023 end -->
+
+</head>
+
+<!-- modal -->
+
+<!-- The Modal -->
+<div class="modal" id="Modal_Login">
+  <div class="modal-dialog modal-lg" style="max-width: 100%;">
+    <div class="modal-content">
+      <div class="close" data-dismiss="modal"></div>
+      <div class="pagination"></div>
+      <div class="container">
+        <div class="col-md-12">
+          <div class="logo-modal">
+            <img class="lazyload" data-src="https://www.indogold.id/template/Assets/img/indo-gold-logo-inverse-black.png" alt="logo indogold">
+            <noscript>
+              <img src="https://www.indogold.id/template/Assets/img/indo-gold-logo-inverse-black.png" alt="logo indogold">
+            </noscript>
+          </div>
+        </div>
+        
+        <!-- alert -->
+        <div class='break'></div>        <!-- end alert -->
+
+        <div class="col-md-6">
+          <div class="break"></div>
+
+          <!-- left side -->
+          <div class="title-2">Masuk</div>
+          <div class="break"></div>
+          <form action="https://www.indogold.id/member/login" method="post">
+            <input type="hidden" name="formtoken" value="cce5bcd361cdbb67ddada095fa237d21">
+            <div class="form-group">
+              <label class="font-dark size-14">Email atau Nomor Handphone</label>
+              <div class="row">
+                <div class="col-md-8">
+                  <input type="text" id="email" name="user_email" class="form-control" placeholder="nama@gmail.com / 0812345678xx" onkeyup="javascript:Convert0to62(this);" oninvalid="this.setCustomValidity('Masukkan Valid Email atau Nomor Handphone')" oninput="setCustomValidity('')" required>
+                  <span id="valid_email" class="fa fa-fw fa-check field-icon" style="color: blue;display: none;"></span>
+                  <label id="error_email" style="color: red;"></label>
+                  <br />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="font-dark size-14">Password</label>
+              <div class="row">
+                <div class="col-md-8">
+                  <input type="password" id="passlogin" name="user_pass" class="form-control" data-toggle="password" oninvalid="this.setCustomValidity('Masukkan password')" oninput="setCustomValidity('')" required>
+                  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" onclick="showpasslogin()"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-center">
+              <a href="#" id="forgotpass" data-toggle="modal" data-target="#Modal_Forgotpass">Lupa password?</a>
+              <div class="row">
+                <div class="col-md-8">
+                  <hr>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <font class="font-gray size-16">Belum punya akun?</font><br>
+                      <a href="#" id="register" data-toggle="modal" data-target="#Modal_Register">Daftar</a>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <button id="btnlgn" type="submit" class="btn btn-outline pull-right tombol btn-gold cvr-login">
+                        <font class="font-menu-black cvr-login">MASUK</font></a>
+                      </div>
+                    </div>
+                  </div> <!-- end center -->
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- end left side -->
+
+          <!-- right side -->
+          <div class="modal-img">
+            <div class="col-md-6 center">
+              <img class="lazyload" data-src="https://www.indogold.id/template/Assets/img/group.png" class="Group" alt="login">
+              <noscript>
+                <img src="https://www.indogold.id/template/Assets/img/group.png" class="Group" alt="login">
+              </noscript>
+              <div class="break-20"></div>
+              <label class="font-dark size-24"><b>Masuk ke akun Anda dengan aman</b></label>
+            </div>
+            <!-- end right side -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let showpasslogin = () => {
+      let z = document.getElementById("passlogin");
+      z.type = (z.type === "password") ? "text" : "password";
+    }
+
+    $(document).ready(function() {
+      $("#email").keyup(function(){
+        let email = $("#email").val();
+        const filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        let matches = email.match(/\d+/g);
+
+        if (matches != null){
+          //hp
+          $("#valid_email").hide();
+          $('#email').addClass('form-red');
+          $('#btnlgn').prop('disabled', true);
+          if((email.length > 10 )){
+            $("#error_email").text("");
+            $('#email').removeClass('form-red');
+            $("#valid_email").show();
+            $('#btnlgn').prop('disabled', false);
+          }
+        }else{
+          //email
+          if(email.length < 1){
+            $("#error_email").text("");
+            $("#valid_email").hide();
+          }else if(!filter.test(email) && (email.length > 0)) {
+            $("#error_email").text("Masukkan Email yang berlaku");
+            $("#valid_email").hide();
+            $('#email').addClass('form-red');
+            $('#btnlgn').prop('disabled', true);
+            email.focus;
+          }else{
+            $("#error_email").text("");
+            $("#valid_email").show();
+            $('#btnlgn').prop('disabled', false);
+            $('#email').removeClass('form-red');
+          }
+        }
+      });
+
+      $("#forgotpass").click(function() {
+        $(this).closest('.modal').modal('toggle');
+      });
+
+      $("#register").click(function() {
+        $(this).closest('.modal').modal('toggle');
+      });
+    });
+
+    function Convert0to62(e){
+      let nv = '';
+      let countrycode = '62';
+      for(x = 0; x < e.value.length; x++){
+        c = e.value.substring(x, x + 1);
+        nv += c;
+      }
+
+      c = nv.substring(0, 1);
+      if(c == '0') nv = countrycode + nv.substring(1, nv.length);
+      e.value = nv;
+    }
+
+  </script>
+<!-- Modal Register -->
+<div class="modal" id="Modal_Register">
+	<div class="modal-dialog modal-lg" style="max-width: 100%;">
+		<div class="modal-content">
+
+			<div class="close" data-dismiss="modal"></div>
+			<div class="pagination"></div>
+
+			<div class="container">
+				<div class="logo-modal">
+					<div class="col-md-12">
+						<img class="lazyload" data-src="https://www.indogold.id/template/Assets/img/indo-gold-logo-inverse-black.png" alt="logo indogold">
+						<noscript>
+							<img src="https://www.indogold.id/template/Assets/img/indo-gold-logo-inverse-black.png" alt="logo indogold">
+						</noscript>
+					</div>
+				</div>
+				
+				<div class="col-md-12 mb-5">
+									</div>
+				
+				<!-- left side -->
+				<div class="col-md-6">
+					<div class="title-2 mb-4">Daftar</div>
+										<form action="https://www.indogold.id/member/registration" method="post">
+						<input type="hidden" name="formtoken" value="cce5bcd361cdbb67ddada095fa237d21">
+
+						<div class="form-group">
+							<label class="font-dark size-14">Nama Sesuai KTP</label>
+							<div class="row">
+								<div class="col-md-8">
+									<input type="text" name="user_name" class="form-control" value="" required>
+																	</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="font-dark size-14">Email (opsional)</label>
+							<div class="row">
+								<div class="col-md-8">
+									<input type="text" name="user_email" class="form-control val_email" placeholder="nama@email.com" value="">
+																	</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="font-dark size-14">Nomor Handphone</label>
+							<div class="row">
+								<div class="col-md-8">
+									<input type="text" id="nohp" name="hp" class="form-control" onkeyup="javascript:CleanHandphone(this);" placeholder="628xxxxxxxxxx" value="" required>
+																	</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="font-dark size-14">Tujuan Investasi</label>
+							<div class="row">
+								<div class="col-md-8">
+									<select name="invest" class="form-control">
+										<option value="" selected hidden>Pilih Tujuan Investasi</option>
+																					<option value="1">Melindungi pokok/modal</option>
+																					<option value="2">Melindungi nilai harta</option>
+																					<option value="3">Menambah pendapatan</option>
+																					<option value="4">Menambah kekayaan</option>
+																					<option value="5">Mendapatkan pendapatan berkala</option>
+																					<option value="6">Lainnya</option>
+																			</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="font-dark size-14">Sumber Dana</label>
+							<div class="row">
+								<div class="col-md-8">
+									<select name="source" class="form-control">
+										<option value="" selected hidden>Pilih Sumber Dana</option>
+																					<option value="1">Penghasilan/Gaji</option>
+																					<option value="2">Keuntungan Bisnis</option>
+																					<option value="3">Hasil Investasi</option>
+																					<option value="4">Suami/Istri</option>
+																					<option value="5">Bunga Simpanan</option>
+																					<option value="6">Dana Pensiun</option>
+																					<option value="7">Lainnya</option>
+																			</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="row">
+								<div id="custom-field">
+									<div class="col-md-4">
+										<label class="font-dark size-14">Password</label>
+										<input type="password" id="password" name="user_pass" class="form-control" data-toggle="password" required>
+										<span id="eye-field" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" onclick="showpass()"></span>
+																			</div>
+									<div class="col-md-4">
+										<label class="font-dark size-14">Konfirmasi</label>
+										<input type="password" id="conf_pass" name="user_pass_conf" class="form-control" data-toggle="conf_pass" required>
+										<span id="eye-field" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" onclick="showconf()"></span>
+																			</div>
+								</div>
+								<div class="col-md-1">
+									<div class="eye">
+										<span toggle="#password-field" id="eye" class="fa fa-fw fa-eye toggle-password" onclick="passfield()"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-8">
+								<font class="font-gray size-14">Gunakan 8 karakter atau lebih, mengandung huruf, angka dan simbol</font>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-8 mt-3">
+								<font class="font-gray size-14">
+									Dengan mendaftar saya setuju dengan <a target="_blank" href="https://www.indogold.id/ketentuan-layanan">Syarat & Ketentuan</a>, serta <a target="_blank" href="https://www.indogold.id/kebijakan-privasi">Kebijakan Privasi</a> yang telah ditetapkan oleh IndoGold.
+								</font>
+							</div>
+						</div>
+
+						<div class="modal-center">
+							<div class="row">
+								<div class="col-md-8 mt-3">
+									<div class="col-md-6">
+										<div class="row">
+											<font class="font-gray size-16">Sudah terdaftar?</font><br>
+											<a href="#" id="login" data-toggle="modal" data-target="#Modal_Login">Masuk</a>
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="row">
+											<button type="submit" class="btn btn-outline pull-right tombol btn-gold cvr-register">
+												<font class="font-menu-black cvr-register">DAFTAR</font>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- end left side -->
+
+				<!-- right side -->
+				<div class="modal-img">
+					<div class="col-md-6 center">
+						<img class="lazyload" data-src="https://www.indogold.id/template/Assets/img/group-2.png" class="Group" alt="registrasi">
+						<noscript>
+							<img src="https://www.indogold.id/template/Assets/img/group-2.png" class="Group" alt="registrasi">
+						</noscript>
+						<div class="break-20"></div>
+						<label class="font-dark size-24"><b>Mulai Investasi Anda</b></label>
+					</div>
+				</div>
+				<!-- end right side -->
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal SMS OTP -->
+<div class="modal" id="Modal_SMSOtp">
+	<div class="modal-dialogv2">
+		<div class="modal-content custom-content">
+			<div class="close" data-dismiss="modal"></div>
+			<div class="pagination"></div>
+
+			<div class="container">
+				<div class="break"></div>
+				<div class="title-2">Masukan Kode Verifikasi</div>
+				<div class="break"></div>
+
+				<div class="size-18">
+					Silahkan masukan 5 digit kode yang telah kami kirimkan ke <b>+</b>
+				</div>
+
+				<div class="break"></div>
+
+				<form id="token" action="https://www.indogold.id/member/verification" method="post">
+					<input type="hidden" name="formtoken" value="cce5bcd361cdbb67ddada095fa237d21">
+					<div class="form-group">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="mb-4">
+									<input type="text" name="token1" class="token-rectangle" maxlength="1" data-max=1 oninput="skipIfMax(this)">
+									<input type="text" name="token2" class="token-rectangle" maxlength="1" data-max=1 oninput="skipIfMax(this)">
+									<input type="text" name="token3" class="token-rectangle" maxlength="1" data-max=1 oninput="skipIfMax(this)">
+									<input type="text" name="token4" class="token-rectangle" maxlength="1" data-max=1 oninput="skipIfMax(this)">
+									<input type="text" name="token5" class="token-rectangle" maxlength="1" data-max=1 oninput="skipIfMax(this)">
+								</div>
+							</div>
+						</div>
+
+						
+						<div>
+							<div id="token" >
+								<button type="submit" name="resenthp" class="resenthp">
+									<font class="size-16">Kirim Ulang 
+										<span class="time">dalam 60 detik</span>
+									</font>
+								</button>
+							</div>
+
+							<div class="mgn-top-20">
+								<button type="submit" name="submit" class="btn btn-outline tombol-gray btn-verify disabledlink">
+									<font class="font-menu-black">VERIFIKASI</font></a>
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Invalid Token -->
+<div class="modal" id="Modal_Invalid">
+	<div class="modal-dialogv2">
+		<div class="modal-content custom-content">
+			<div class="close" data-dismiss="modal"></div>
+			<div class="pagination"></div>
+			<div class="container">
+				<div class="title-2">Pendaftaran Gagal!</div>
+				<div class="size-18">
+					<br>
+					<p>Maaf, Token yang Anda masukkan salah.</p>
+				</div>
+				<div class="row">
+					<div class="col-md-12 mgn-top-20">
+						<a href="https://www.indogold.id/member/registration" type="submit" class="btn btn-outline tombol btn-gold">
+							<font class="font-menu-black">DAFTAR KEMBALI</font>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function passfield() {
+		let x = document.getElementById("password");
+		let y = document.getElementById("conf_pass");
+		if(x.type === "password" && y.type === "password"){
+			x.type = "text";
+			y.type = "text";
+		}else{
+			x.type = "password";
+			y.type = "password";
+		}
+	}
+</script>
+
+<script>
+	let showpass = () => {
+		let x = document.getElementById("password");
+		(x.type === "password") ? x.type = "text" : x.type = "password";
+	}
+
+	let showconf = () => {
+		let y = document.getElementById("conf_pass");
+		(y.type === "password") ? y.type = "text" : y.type = "password";
+	}
+
+	function CleanHandphone(e) {
+		let nv = '';
+		let countrycode = '62';
+		for(x = 0; x < e.value.length; x++){
+			c = e.value.substring(x, x + 1);
+			if (isInt(c)) {
+				nv += c;
+			}
+		}
+		c = nv.substring(0, 1);
+		if (c == '0') {
+			nv = countrycode + nv.substring(1, nv.length);
+		}
+		e.value = nv;
+	}
+
+	$(document).ready(function() {
+		$(".toggle-password").click(function() {
+			$(this).toggleClass("fa-eye fa-eye-slash");
+		});
+
+		$("#login").click( function(){
+			$(this).closest('.modal').modal('toggle');
+		});
+
+		let valEmail = (function() {
+			const email = document.querySelector('.val_email');
+			const invalidChars = /[^0-9a-z A-Z@._-]/gi;
+			email.addEventListener('keyup', function() {
+				if(invalidChars.test(email.value)){
+					email.value = email.value.replace(invalidChars, "");
+				}
+			});
+		})();
+
+		let checkNullOTP = (() => {
+			let token = $(".token-rectangle");
+			token.on("keyup",function(e){
+				if(token[0].value != "" && token[1].value != "" && token[2].value != "" && token[3].value != "" && token[4].value != ""){
+					$('.btn-verify').removeClass('disabledlink');
+					$('.btn-verify').css('backgroundColor','#f9c51f');
+				}else{
+					$('.btn-verify').addClass('disabledlink');
+					$('.btn-verify').css('backgroundColor','#d5d5d5');
+				}
+			})
+		})();
+	});
+</script>
+<!-- The Modal -->
+<div class="modal" id="Modal_Forgotpass">
+	<div class="modal-dialogv2">
+		<div class="modal-content custom-content">
+			<div class="close" data-dismiss="modal"></div>
+			<div class="pagination"></div>
+			<div class="container">
+
+									<div class="break"></div>
+
+					<!-- left side -->
+					<div class="title-2">Lupa Password? Jangan Khawatir!</div>
+					<div class="break"></div>
+					<div class="size-18">
+						Silahkan masukan email atau nomor handphone Anda yang telah terdaftar. <br>
+						Kode untuk mengatur ulang password akan kami kirimkan via email/sms.
+					</div>
+					
+					<div class="break"></div>
+					<form action="https://www.indogold.id/member/forgot" method="post">
+						<input type="hidden" name="formtoken" value="cce5bcd361cdbb67ddada095fa237d21">
+						<div class="form-group">
+							<label class="font-dark size-14">Email atau Nomor Handphone Terdaftar</label>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="row">
+										<div class="col-md-8">
+											<input id="f_email" type="text" name="user_email" class="form-control" onkeyup="javascript:Convert0to62(this);"  required>
+											<label id="f_error_email" style="color: red;"></label>
+										</div>
+									
+										<div class="col-md-4">
+											<button id="f_submit" type="submit" class="btn btn-outline tombol btn-gold">
+												<font class="font-menu-black">KIRIMKAN KODE VERIFIKASI</font></a>
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<div class='col-md-12'></div>							</div>
+						</div>
+
+						<div id="loginv2">
+							<div class="break"></div>
+							<a href="#" id="loginv2" data-toggle="modal" data-target="#Modal_Login">
+								<i class="fa fa-chevron-left"></i> &nbsp; 
+								<font class="font-waterblue size-16">Kembali ke Login</font>
+							</a>
+						</div>
+					</div>
+				</form>
+
+						</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$("#loginv2").click(function() {
+		$(this).closest('.modal').modal('toggle');
+	});
+</script>
+
+<script type="text/javascript">
+	$(".eye-forgot").click(function() {
+		$(this).toggleClass("fa-eye fa-eye-slash");
+
+	});
+</script>
+
+<script>
+	function showforgotpass() {
+		let x = document.getElementById("new_password");
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	}
+</script>
+
+<script>
+	function showforgotConfpass() {
+		let x = document.getElementById("conf_password");
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	}
+</script>
+
+<script type="text/javascript">
+	function skipIfMax(element){
+		max = parseInt(element.dataset.max)
+		if (element.value.length >= max && element.nextElementSibling) {
+			element.nextElementSibling.focus();
+		}
+	}
+</script>
+
+<script>
+	function Timer60(duration, display) {
+		var timer = duration,
+			minutes, seconds;
+		$('.resenthp').addClass('disabledlink');
+
+		setInterval(function() {
+			seconds = parseInt(timer % 60, 10);
+			seconds = seconds < 10 ? "0" + seconds : seconds;
+			display.text("dalam " + seconds + " detik");
+
+			if(--timer < 0){
+				timer = 00;
+				display.text(" Kode");
+				$('.resenthp').removeClass('disabledlink');
+			}
+		}, 1000);
+	}
+
+	$(function($) {
+		let oneMinutes = 59,
+			display = $('.time');
+		Timer60(oneMinutes, display);
+	});
+
+	$(document).ready(function(){
+		$("#f_email").keyup(function(){
+		    let f_email = $("#f_email").val();
+		    const filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		    let matches = f_email.match(/\d+/g);
+
+		    if (matches != null){
+		      $('#f_email').addClass('form-red');
+		      $('#f_submit').prop('disabled', true);
+		      if((f_email.length > 10 )){
+		        $('#f_email').removeClass('form-red');
+		        $('#f_submit').prop('disabled', false);
+		      }
+		    }else{
+		      	// f_email
+				if(!filter.test(f_email) && (f_email.length > 0)) {
+			        $('#f_email').addClass('form-red');
+			        $('#f_submit').prop('disabled', true);
+			        f_email.focus;
+		    	}else{
+			        $('#f_submit').prop('disabled', false);
+			        $('#f_email').removeClass('form-red');
+		      	}
+		    }
+	  	});
+  	});
+</script><link class="css-preload" rel="stylesheet" rel="preload" href="https://www.indogold.id/template/css/pages/community-modal.css" media="all" as="style">
+<noscript>
+  <link rel="stylesheet" href="https://www.indogold.id/template/css/pages/community-modal.css">
+</noscript>
+
+<div class="modal community-modal" id="komunitasModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header align-items-center justify-content-start">
+        <div class="title-group d-flex align-items-center">
+          <i class="fa fa-info-circle h4"></i>
+          <h5 class="modal-title h4" id="komunitasModal">Komunitas IndoGold</h5>
+        </div>
+        <button type="button" role="button" class="modal-close position-absolute" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <img class="com-img lazyload" src="https://www.indogold.id/images/Feed_Ilustrasi_TelegramDiscord_REV-01.png" width="100%" height="auto">
+        <p>
+          Siapapun bisa gabung di grup komunitas IndoGold secara gratis. Bertemu dan mengobrol banyak hal tentang investasi dengan investor lainnya.
+        </p>
+        <p>
+          Gabung sekarang dengan klik tombol dibawah ini! 
+        </p>
+        <div class="community-group d-flex justify-content-center align-items-center">
+          <a class="font-gray" href="http://t.me/indogoldinvestclub" target="_blank">
+            <img class="lazyload" src="https://www.indogold.id//images/telegram-circle.png" alt="telegram" width="50" height="50">
+          </a>
+          <a class="font-gray" href="http://bit.ly/indogoldinvestclub" target="_blank">
+            <img class="lazyload" src="https://www.indogold.id//images/discord-circle.png" alt="discord" width="50" height="50">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- end modal -->
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWPG48" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            let js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=186134841441122";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- banner -->
+    <!-- <section class="banner">
+        <div class="d-flex position-fixed banner-wrapper lazyload">
+            <div class="ml-4">
+              Download aplikasi IndoGold sekarang
+              <br>
+              Nikmati pengalaman bertransaksi emas yang mudah, aman dan terpercaya!
+            </div>
+            <div class="mr-4">
+                <a href="https://play.google.com/store/apps/details?id=antamgold.android" target="_blank">
+                    <img src="https://www.indogold.id/template/Assets/img/google-play-badge-id-copy@3x.png" alt="playstore">
+                </a>
+                <a href="https://itunes.apple.com/us/app/antamgold.com-mobile/id513376092?mt=8" target="_blank">
+                    <img src="https://www.indogold.id/template/Assets/img/download-on-the-app-store-badge-id-rgb-blk-100317-copy@3x.png" alt="appstore">
+                </a>
+                <button class="dismiss-banner position-absolute">
+                    X
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            $("section.banner").slideDown();
+            const btnDismiss = $('button.dismiss-banner');
+            btnDismiss.click((e) => $("section.banner").slideUp());
+        });
+    </script> -->
+    
+    <!-- navbar -->
+    <div id="navigasi">
+
+        <!-- untuk menu responsive -->
+        <button type="button" id="tribut" class="navbar-toggle" onclick="openNav()">
+            <div class="bar">
+                <span id="btn-nav">&#9776; </span>
+            </div>
+        </button>
+        <!-- end menu responsive -->
+
+        <!-- menu overlay -->
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" id="closebtn" class="closebtn ml-4" onclick="closeNav()">&times;</a>
+
+            <div class="overlay-right">
+                                    <input class="button-defv2 font-gray navbar-toggle font-weight-bold mt-3" id="login" data-toggle="modal" data-target="#Modal_Login" type="submit" value="MASUK"></input>
+                    <input class="button-goldv2 font-dark navbar-toggle font-weight-bold mt-3" id="register" data-toggle="modal" data-target="#Modal_Register" type="submit" value="DAFTAR"></input>
+                            </div>
+
+            <div class="overlay-content">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a href="https://www.indogold.id/harga-emas-hari-ini">
+                            <font class="font-white size-24">Harga Emas</font>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://www.indogold.id/emas-batangan">
+                            <font class="font-white size-24">Emas Batangan</font>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://www.indogold.id/perak-batangan">
+                            <font class="font-white size-24">Perak Batangan</font>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://www.indogold.id/layanan">
+                            <font class="font-white size-24">Layanan Kami</font>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://blog.indogold.id/" target="_blank" rel="noopener noreferrer">
+                            <font class="font-white size-24">Berita</font>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://www.indogold.id/faq">
+                            <font class="font-white size-24">Bantuan</font>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="overlay-bottom">
+                <img class="float-left" src="https://www.indogold.id/template/Assets/img/hubungi-kami2@3x.png" alt="contact-us">
+                <a href="https://www.indogold.id/contact" class="font-gray">Hubungi Kami</a>
+            </div>
+
+                    </div>
+        <!-- end menu overlay -->
+
+        <div class="d-flex justify-content-between h-100 align-items-center"> 
+            <a class="navbar-brand" href="https://www.indogold.id/">
+                <img src="https://www.indogold.id/template/Assets/img/indo-gold-logo-inverse.png" almt="logo indogold" class="logo" alt="logo indogold">
+            </a>
+
+            <input class="button-gold-dft font-dark navbar-toggle right font-weight-bold" id="hp_register" data-toggle="modal" data-target="#Modal_Register" type="submit" value="DAFTAR">
+
+            <!-- menu dekstop -->
+            <div class="collapse navbar-collapse px-4" id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a href="https://www.indogold.id/emas-batangan" class="px-2 px-xl-4">
+                            <font class="font-menu">EMAS BATANGAN </font>
+                        </a>
+                        <hr>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://www.indogold.id/perak-batangan" class="px-2 px-xl-4">
+                            <font class="font-menu">PERAK BATANGAN </font>
+                        </a>
+                        <hr>
+                    </li>
+
+                    <li class="nav-item nav-harga">
+                        <a href="https://www.indogold.id/harga-emas-hari-ini" class="px-2 px-xl-4">
+                            <font class="font-menu">HARGA EMAS </font>
+                        </a>
+                        <hr>
+                    </li>
+
+                    <li class="nav-item nav-layanan">
+                        <a href="https://www.indogold.id/layanan" class="px-md-2 px-2 px-xl-4">
+                            <font class="font-menu">LAYANAN KAMI</font>
+                        </a>
+                        <hr>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://blog.indogold.id/" target="_blank" rel="noopener noreferrer" class="px-md-2 px-2 px-xl-4">
+                            <font class="font-menu">BERITA</font>
+                        </a>
+                        <hr>
+                    </li>
+
+                    <li class="nav-item nav-bantuan">
+                        <a href="https://www.indogold.id/faq" class="px-md-2 px-2 px-xl-4">
+                            <font class="font-menu">BANTUAN</font>
+                        </a>
+                        <hr>
+                    </li>
+
+                                            <li class="button-def" id="login" data-toggle="modal" data-target="#Modal_Login">
+                            <a role="button" style="cursor:pointer;">
+                                <font class="font-menu">MASUK</font>
+                            </a>
+                        </li>
+
+                        <li class="button-gold" id="register" data-toggle="modal" data-target="#Modal_Register">
+                            <a role="button" style="cursor:pointer;">
+                                <font class="font-menu-black">DAFTAR</font>
+                            </a>
+                        </li>
+                                    </ul>
+            </div>
+            <!-- end menu dekstop -->
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="paging"></div>
+    <!-- end navbar -->
+
+    <!-- lozad -->
+<script src="https://www.indogold.id/public/tw/vendor/lozad/lozad.js"></script>
+
+<!-- Styles -->
+<link href="https://www.indogold.id/public/tw/css/pricelist-table-v3.min.css" rel="stylesheet" />
+
+<!-- AOS -->
+<link rel="stylesheet" href="https://www.indogold.id/public/tw/vendor/aos/aos.min.css" />
+
+<!-- HTML2canvas -->
+<script src="https://www.indogold.id/public/tw/vendor/html2canvas/html2canvas.min.js"></script>
+
+
+<section class="tw-layer">
+  <div class="price-container">
+    <div class="pricelist-content-wrapper">
+      <div class="rectangle-card">
+        <div class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-gap-4 tw-text-center">
+          <h1 class="title" data-aos="zoom-in">Harga Jual & Beli Emas Fisik Hari ini</h1>
+          <p class="tw-text-custom-gray last-update" data-aos="zoom-in">
+            Last Update : 26 May 2026 16:27          </p>
+        </div>
+
+        <div class="brand-wrapper">
+          <button class="brandButton px-4 py-2 bg-blue-500 text-white rounded-lg" data-brand="comparison_antamxubs" data-lastupdate="" data-aos="fade-down" data-aos-delay="0">
+            <div class="brand-card comparison" style="justify-content:center" data-brand-name="Harga IndoGold, Antam dan UBS">
+              <div>
+                <img class="lozad" data-src="https://www.indogold.id/template/Assets/img/indo-gold-logo-inverse-black.png" alt="indogold">
+                <img class="lozad" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/product-images/logo-antam.png" alt="antam">
+                <img class="lozad" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/product-images/logo-ubs.png" alt="ubs">
+              </div>
+            </div>
+          </button>
+
+                      <button class="brandButton px-4 py-2 bg-blue-500 text-white rounded-lg" data-brand="IDG_33" data-lastupdate="26 May 2026 13:53" data-aos="fade-down" data-aos-delay="0">
+              <div class="brand-card active" data-brand-name="Emas Indogold">
+                                <img class="lozad" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/product-images/51dbc261194f9977592d1318b963e91f.png" alt="51dbc261194f9977592d1318b963e91f.png">
+              </div>
+            </button>
+                      <button class="brandButton px-4 py-2 bg-blue-500 text-white rounded-lg" data-brand="LM_1" data-lastupdate="26 May 2026 14:51" data-aos="fade-down" data-aos-delay="100">
+              <div class="brand-card " data-brand-name="LM Antam 99.99%">
+                                <img class="lozad" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/product-images/e7dcfb6cb2fde60c533946b0a150e440.png" alt="e7dcfb6cb2fde60c533946b0a150e440.png">
+              </div>
+            </button>
+                      <button class="brandButton px-4 py-2 bg-blue-500 text-white rounded-lg" data-brand="UBS_5" data-lastupdate="26 May 2026 13:09" data-aos="fade-down" data-aos-delay="200">
+              <div class="brand-card " data-brand-name="UBS Gold 99.99%">
+                                <img class="lozad" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/product-images/2b531c67054de2877b323d0fb89acad9.png" alt="2b531c67054de2877b323d0fb89acad9.png">
+              </div>
+            </button>
+                  </div>
+
+        <div class="table-product-wrapper">
+          <table class="tw-table-auto tw-whitespace-nowrap" data-aos="zoom-in" data-aos-delay="200">
+          </table>
+        </div>
+
+        <div class="share-wrapper">
+          <div class="share" data-aos="zoom-in" data-aos-delay="200">
+            <p>Share tabel harga ini</p>
+            <div class="socmed">
+              <ul>
+                <li>
+                  <a href="javascript:void(0)">
+                    <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.29066 8.37685C9.00677 8.49287 8.82542 8.9373 8.64144 9.16436C8.5471 9.28066 8.43461 9.29883 8.28959 9.24053C7.22406 8.81602 6.40727 8.10498 5.81929 7.12441C5.71968 6.97236 5.73755 6.85225 5.85767 6.71104C6.0352 6.50186 6.25844 6.26426 6.30649 5.98242C6.41313 5.35898 5.5981 3.4251 4.52173 4.30137C1.42448 6.82529 9.6885 13.5193 11.18 9.89883C11.6019 8.87256 9.76116 8.18408 9.29066 8.37685ZM7.50004 13.6898C6.40463 13.6898 5.32681 13.3986 4.38316 12.8473C4.2317 12.7585 4.04859 12.7351 3.87926 12.7811L1.82878 13.3438L2.54303 11.7703C2.6403 11.5562 2.6154 11.3068 2.478 11.1164C1.71394 10.0573 1.30993 8.80693 1.30993 7.5C1.30993 4.08662 4.08668 1.30986 7.50004 1.30986C10.9134 1.30986 13.6899 4.08662 13.6899 7.5C13.6899 10.9131 10.9131 13.6898 7.50004 13.6898ZM7.50004 0C3.36451 0 7.84076e-05 3.36445 7.84076e-05 7.5C7.84076e-05 8.95488 0.413162 10.3521 1.19802 11.5646L0.0586719 14.0739C-0.0465034 14.3057 -0.00812466 14.577 0.156523 14.77C0.283085 14.918 0.466189 15 0.655153 15C1.07761 15 3.38121 14.2761 3.96744 14.1152C5.05113 14.695 6.26665 15 7.50004 15C11.6353 15 15 11.6353 15 7.5C15 3.36445 11.6353 0 7.50004 0Z" />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="last-update tw-hidden md:tw-block" data-aos="zoom-in" data-aos-delay="200">
+            Last Update 26 May 2026 16:27          </p>
+        </div>
+
+        <div class="price-rules-wrapper">
+          <div class="rules">
+            <ul>
+              <li data-aos="zoom-in" data-aos-delay="150">Harga terima barang akan disesuaikan dengan kondisi barang</li>
+              <li data-aos="zoom-in" data-aos-delay="300">Harga diatas sudah termasuk biaya sertifikat</li>
+              <li data-aos="zoom-in" data-aos-delay="450">Harga belum termasuk Pajak PPh 22</li>
+              <li data-aos="zoom-in" data-aos-delay="600">Harga dapat berubah sewaktu-waktu tanpa pemberitahuan terlebih dahulu</li>
+            </ul>
+          </div>
+          <a href="https://www.indogold.id/detail-emas-batangan" class="btn-outline-gold" data-aos="fade-right" data-aos-delay="200">
+            More Detail >>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-content-wrapper">
+      <div class="simulation-banner">
+        <div class="bb-banner rectangle-card-gold">
+          <img class="lazyload" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/helper-files/ig-laptop.svg" alt="Laptop" data-aos="fade-right" data-aos-delay="200">
+          <div>
+            <h2 data-aos="fade-right" data-aos-delay="400">Simulasi Harga Jual <br> (Buyback)</h2>
+          </div>
+        </div>
+        <div class="question rectangle-card-gold">
+          <div>
+            <h2 data-aos="fade-right" data-aos-delay="200">Anda memiliki pertanyaan seputar IndoGold?</h2>
+            <div class="contact-us-btn" data-aos="fade-right" data-aos-delay="400">
+              <a href="https://wa.me/6281228169999" target="_blank">
+                <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.29066 8.37685C9.00677 8.49287 8.82542 8.9373 8.64144 9.16436C8.5471 9.28066 8.43461 9.29883 8.28959 9.24053C7.22406 8.81602 6.40727 8.10498 5.81929 7.12441C5.71968 6.97236 5.73755 6.85225 5.85767 6.71104C6.0352 6.50186 6.25844 6.26426 6.30649 5.98242C6.41313 5.35898 5.5981 3.4251 4.52173 4.30137C1.42448 6.82529 9.6885 13.5193 11.18 9.89883C11.6019 8.87256 9.76116 8.18408 9.29066 8.37685ZM7.50004 13.6898C6.40463 13.6898 5.32681 13.3986 4.38316 12.8473C4.2317 12.7585 4.04859 12.7351 3.87926 12.7811L1.82878 13.3438L2.54303 11.7703C2.6403 11.5562 2.6154 11.3068 2.478 11.1164C1.71394 10.0573 1.30993 8.80693 1.30993 7.5C1.30993 4.08662 4.08668 1.30986 7.50004 1.30986C10.9134 1.30986 13.6899 4.08662 13.6899 7.5C13.6899 10.9131 10.9131 13.6898 7.50004 13.6898ZM7.50004 0C3.36451 0 7.84076e-05 3.36445 7.84076e-05 7.5C7.84076e-05 8.95488 0.413162 10.3521 1.19802 11.5646L0.0586719 14.0739C-0.0465034 14.3057 -0.00812466 14.577 0.156523 14.77C0.283085 14.918 0.466189 15 0.655153 15C1.07761 15 3.38121 14.2761 3.96744 14.1152C5.05113 14.695 6.26665 15 7.50004 15C11.6353 15 15 11.6353 15 7.5C15 3.36445 11.6353 0 7.50004 0Z" />
+                </svg>
+                Hubungi Kami
+              </a>
+            </div>
+          </div>
+          <img class="lazyload" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/helper-files/contact.svg" alt="Kontak" data-aos="fade-right" data-aos-delay="550">
+        </div>
+      </div>
+
+      <form>
+        <div class="simulation rectangle-card">
+          <div class="simulation-form">
+            <div>
+              <p class="subtitle" data-aos="fade-down" data-aos-delay="200">Simulasi Harga Jual (Buyback) Emas<br> Logam Mulia Hari Ini</p>
+              <div class="form-wrapper">
+                <div class="form-simulation-group">
+                  <label for="merk" data-aos="fade-down" data-aos-delay="300">Merek</label>
+                  <div class="tw-relative" data-aos="fade-down" data-aos-delay="400">
+                    <select name="merk" id="merk">
+                      <option value="" disabled selected>- Pilih Merek -</option>
+                                              <option value="LM_1">
+                          LM Antam 99.99%                        </option>
+                                              <option value="UBS_5">
+                          UBS Gold 99.99%                        </option>
+                                              <option value="LMRTR_29">
+                          Antam Retro                        </option>
+                                              <option value="UBSRTR_30">
+                          UBS Retro                        </option>
+                                              <option value="LMRTRX_31">
+                          Antam Retro Sertifikat Rusak                        </option>
+                                              <option value="UBSRTRX_32">
+                          UBS Retro Sertifikat Rusak                        </option>
+                                          </select>
+                    <div class="tw-absolute tw-inset-y-0 tw-right-3 tw-flex tw-items-center tw-pointer-events-none">
+                      <svg class="tw-w-10 tw-h-10 tw-fill-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12 15.75a.75.75 0 0 1-.53-.22l-5.25-5.25a.75.75 0 1 1 1.06-1.06L12 13.94l4.72-4.72a.75.75 0 1 1 1.06 1.06l-5.25 5.25a.75.75 0 0 1-.53.22Z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-simulation-group">
+                  <label for="varian" data-aos="fade-down" data-aos-delay="500">Tipe / Varian</label>
+                  <div class="tw-relative" data-aos="fade-down" data-aos-delay="600">
+                    <select name="varian" id="varian">
+                      <option value="" disabled selected>- Pilih Tipe / Varian -</option>
+                    </select>
+                    <div class="tw-absolute tw-inset-y-0 tw-right-3 tw-flex tw-items-center tw-pointer-events-none">
+                      <svg class="tw-w-10 tw-h-10 tw-fill-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12 15.75a.75.75 0 0 1-.53-.22l-5.25-5.25a.75.75 0 1 1 1.06-1.06L12 13.94l4.72-4.72a.75.75 0 1 1 1.06 1.06l-5.25 5.25a.75.75 0 0 1-.53.22Z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-simulation-group">
+                  <label for="pecahan" data-aos="fade-down" data-aos-delay="700">Pecahan</label>
+                  <div class="tw-relative" data-aos="fade-down" data-aos-delay="800">
+                    <select name="pecahan" id="pecahan">
+                      <option value="" disabled selected>- Pilih Pecahan -</option>
+                    </select>
+                    <div class="tw-absolute tw-inset-y-0 tw-right-3 tw-flex tw-items-center tw-pointer-events-none">
+                      <svg class="tw-w-10 tw-h-10 tw-fill-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12 15.75a.75.75 0 0 1-.53-.22l-5.25-5.25a.75.75 0 1 1 1.06-1.06L12 13.94l4.72-4.72a.75.75 0 1 1 1.06 1.06l-5.25 5.25a.75.75 0 0 1-.53.22Z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="simulation-product">
+            <p class="subtitle" data-aos="fade-down" data-aos-delay="200">Hasil Simulasi Harga Jual (Buyback)</p>
+            <div class="simulation-product__detail">
+              <img class="lazyload" data-src="https://www.indogold.id/article/no_image.png" alt="Foto Produk" data-product-picture data-aos="zoom-in" data-aos-delay="200">
+              <div class="simulation-product__wrapper">
+                <div class="simulation-product__detail-description">
+                  <div>
+                    <p data-product-name>-</p>
+                    <p data-product-variant>-</p>
+                    <p data-product-pecahan>-</p>
+                  </div>
+                  <div>
+                    <p>Harga Jual</p>
+                    <p class="product-price" data-product-bid>-</p>
+                  </div>
+                </div>
+                <div class="reset-wrapper">
+                  <p data-aos="zoom-in" data-aos-delay="500">Bukan barang ini yang dimaksud?</p>
+                  <button type="reset">
+                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0.00334441 11.2382L0.805057 6.50874C0.834425 6.33546 1.04033 6.25897 1.17574 6.37101L4.87108 9.42956C5.0065 9.54165 4.96976 9.75823 4.80503 9.81946L0.307929 11.4904C0.143196 11.5516 -0.0260234 11.4115 0.00334441 11.2382Z" />
+                      <path d="M16.9935 3.91329L16.1918 8.64273C16.1624 8.81601 15.9565 8.8925 15.8211 8.78046L12.1258 5.72191C11.9904 5.60987 12.0271 5.39325 12.1918 5.33201L16.6889 3.66111C16.8537 3.59987 17.0229 3.73996 16.9935 3.91329Z" />
+                      <path d="M8.4996 1.03213e-09C5.65314 -4.72141e-05 3.04998 1.61981 1.7644 4.10994C1.71473 4.20616 1.73721 4.32377 1.82064 4.3928L2.93964 5.31897C3.05494 5.41439 3.23086 5.37558 3.29224 5.23909C4.20538 3.20832 6.25192 1.86797 8.4996 1.86793C10.8003 1.86793 12.8912 3.27191 13.7706 5.3838C13.8178 5.49697 13.9455 5.55288 14.0605 5.51019L15.3842 5.01835C15.5052 4.97341 15.5651 4.83695 15.5163 4.71745C14.3615 1.8861 11.5716 1.03213e-09 8.4996 1.03213e-09Z" />
+                      <path d="M14.0315 9.89076C13.917 9.796 13.7424 9.83349 13.6799 9.96838C12.7542 11.9672 10.725 13.2826 8.49856 13.2826C6.19786 13.2826 4.10699 11.8786 3.22756 9.76668C3.18044 9.65351 3.05268 9.5976 2.93775 9.64029L1.61394 10.1321C1.49292 10.1771 1.4331 10.3135 1.48183 10.433C2.63657 13.2644 5.4266 15.1505 8.49856 15.1504C10.5454 15.1505 12.4667 14.3135 13.8629 12.9172C14.393 12.387 14.8472 11.776 15.2039 11.0998C15.2547 11.0034 15.2325 10.8848 15.1485 10.8153L14.0315 9.89076Z" />
+                    </svg>
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="reset-wrapper">
+              <p data-aos="zoom-in" data-aos-delay="500">Bukan barang ini yang dimaksud?</p>
+              <button type="reset">
+                <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0.00334441 11.2382L0.805057 6.50874C0.834425 6.33546 1.04033 6.25897 1.17574 6.37101L4.87108 9.42956C5.0065 9.54165 4.96976 9.75823 4.80503 9.81946L0.307929 11.4904C0.143196 11.5516 -0.0260234 11.4115 0.00334441 11.2382Z" />
+                  <path d="M16.9935 3.91329L16.1918 8.64273C16.1624 8.81601 15.9565 8.8925 15.8211 8.78046L12.1258 5.72191C11.9904 5.60987 12.0271 5.39325 12.1918 5.33201L16.6889 3.66111C16.8537 3.59987 17.0229 3.73996 16.9935 3.91329Z" />
+                  <path d="M8.4996 1.03213e-09C5.65314 -4.72141e-05 3.04998 1.61981 1.7644 4.10994C1.71473 4.20616 1.73721 4.32377 1.82064 4.3928L2.93964 5.31897C3.05494 5.41439 3.23086 5.37558 3.29224 5.23909C4.20538 3.20832 6.25192 1.86797 8.4996 1.86793C10.8003 1.86793 12.8912 3.27191 13.7706 5.3838C13.8178 5.49697 13.9455 5.55288 14.0605 5.51019L15.3842 5.01835C15.5052 4.97341 15.5651 4.83695 15.5163 4.71745C14.3615 1.8861 11.5716 1.03213e-09 8.4996 1.03213e-09Z" />
+                  <path d="M14.0315 9.89076C13.917 9.796 13.7424 9.83349 13.6799 9.96838C12.7542 11.9672 10.725 13.2826 8.49856 13.2826C6.19786 13.2826 4.10699 11.8786 3.22756 9.76668C3.18044 9.65351 3.05268 9.5976 2.93775 9.64029L1.61394 10.1321C1.49292 10.1771 1.4331 10.3135 1.48183 10.433C2.63657 13.2644 5.4266 15.1505 8.49856 15.1504C10.5454 15.1505 12.4667 14.3135 13.8629 12.9172C14.393 12.387 14.8472 11.776 15.2039 11.0998C15.2547 11.0034 15.2325 10.8848 15.1485 10.8153L14.0315 9.89076Z" />
+                </svg>
+                Reset
+              </button>
+            </div>
+
+            <div class="simulation-notes">
+              <p data-aos="fade-right" data-aos-delay="900">Catatan:</p>
+              <ul>
+                <li data-aos="fade-right" data-aos-delay="1000">
+                  Harga emas yang akan dijual kembali (buyback) kepada IndoGold akan disesuaikan dengan kondisi dan harga saat barang diterima.
+                </li>
+                <li data-aos="fade-right" data-aos-delay="1100">
+                  Harap melampirkan foto emas batangan untuk memperlancar proses verifikasi.
+                </li>
+                <li data-aos="fade-right" data-aos-delay="1200">
+                  Penilaian kondisi emas sepenuhnya dilakukan oleh IndoGold, dengan keputusan akhir berada di pihak IndoGold.
+                </li>
+                <li data-aos="fade-right" data-aos-delay="1300">
+                  Untuk informasi lebih lanjut mengenai harga buyback, silakan hubungi Sales IndoGold
+                </li>
+              </ul>
+
+              <div class="rules-check">
+                <a class="btn-sm-jual btn-bg-gold" href="javascript:void(0)" data-contact-wa data-aos="zoom-in" data-aos-delay="1300" target="_blank" rel="noopener" disabled>
+                  Jual Sekarang
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="rectangle-card">
+        <div class="table-add-product-wrapper">
+                      <p class="subtitle" data-aos="zoom-in" data-aos-delay="200">
+              Perak Indogold Batik            </p>
+            <table class="tw-table-auto tw-whitespace-nowrap" data-aos="zoom-in" data-aos-delay="300">
+              <thead>
+                <tr class="product-price table-price">
+                  <td class="sticky-table" width="5%">Pecahan</td>
+                  <td>Harga Beli</td>
+                  <td class="tw-whitespace-normal">Harga Jual (Buyback)</td>
+                </tr>
+              </thead>
+              <tbody>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      25.0 Gram
+                    </td>
+                    <td>
+                      Rp. 2,000,000                    </td>
+                    <td>
+                      Rp. 1,125,000                    </td>
+                  </tr>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      50.0 Gram
+                    </td>
+                    <td>
+                      Rp. 3,950,000                    </td>
+                    <td>
+                      Rp. 2,250,000                    </td>
+                  </tr>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      100.0 Gram
+                    </td>
+                    <td>
+                      Rp. 7,700,000                    </td>
+                    <td>
+                      Rp. 4,500,000                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+            <p class="tw-flex tw-justify-end tw-text-custom-gray" data-aos="zoom-in" data-aos-delay="400">
+              Last Update : 26 May 2026 08:23            </p>
+                      <p class="subtitle" data-aos="zoom-in" data-aos-delay="200">
+              Perak IndoGold            </p>
+            <table class="tw-table-auto tw-whitespace-nowrap" data-aos="zoom-in" data-aos-delay="300">
+              <thead>
+                <tr class="product-price table-price">
+                  <td class="sticky-table" width="5%">Pecahan</td>
+                  <td>Harga Beli</td>
+                  <td class="tw-whitespace-normal">Harga Jual (Buyback)</td>
+                </tr>
+              </thead>
+              <tbody>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      10.0 Gram
+                    </td>
+                    <td>
+                      Rp. 875,000                    </td>
+                    <td>
+                      Rp. 440,000                    </td>
+                  </tr>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      100.0 Gram
+                    </td>
+                    <td>
+                      Rp. 7,550,000                    </td>
+                    <td>
+                      Rp. 4,400,000                    </td>
+                  </tr>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      500.0 Gram
+                    </td>
+                    <td>
+                      Rp. 36,250,000                    </td>
+                    <td>
+                      Rp. 22,000,000                    </td>
+                  </tr>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      1,000.0 Gram
+                    </td>
+                    <td>
+                      Rp. 69,000,000                    </td>
+                    <td>
+                      Rp. 44,000,000                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+            <p class="tw-flex tw-justify-end tw-text-custom-gray" data-aos="zoom-in" data-aos-delay="400">
+              Last Update : 26 May 2026 08:23            </p>
+                      <p class="subtitle" data-aos="zoom-in" data-aos-delay="200">
+              Perak Kuda Api Indogold            </p>
+            <table class="tw-table-auto tw-whitespace-nowrap" data-aos="zoom-in" data-aos-delay="300">
+              <thead>
+                <tr class="product-price table-price">
+                  <td class="sticky-table" width="5%">Pecahan</td>
+                  <td>Harga Beli</td>
+                  <td class="tw-whitespace-normal">Harga Jual (Buyback)</td>
+                </tr>
+              </thead>
+              <tbody>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      500.0 Gram
+                    </td>
+                    <td>
+                      Rp. 39,250,000                    </td>
+                    <td>
+                      Rp. 22,500,000                    </td>
+                  </tr>
+                                  <tr class="table-price">
+                    <td class="sticky-table">
+                      1,000.0 Gram
+                    </td>
+                    <td>
+                      Rp. 75,000,000                    </td>
+                    <td>
+                      Rp. 45,000,000                    </td>
+                  </tr>
+                
+              </tbody>
+            </table>
+            <p class="tw-flex tw-justify-end tw-text-custom-gray" data-aos="zoom-in" data-aos-delay="400">
+              Last Update : 26 May 2026 08:23            </p>
+                  </div>
+      </div>
+
+      <div class="simulation-banner">
+        <div class="question question-mobile rectangle-card-gold">
+          <div>
+            <p>Anda memiliki pertanyaan seputar IndoGold?</p>
+            <div class="contact-us-btn">
+              <a href="https://wa.me/628118257699" target="_blank">
+                <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.29066 8.37685C9.00677 8.49287 8.82542 8.9373 8.64144 9.16436C8.5471 9.28066 8.43461 9.29883 8.28959 9.24053C7.22406 8.81602 6.40727 8.10498 5.81929 7.12441C5.71968 6.97236 5.73755 6.85225 5.85767 6.71104C6.0352 6.50186 6.25844 6.26426 6.30649 5.98242C6.41313 5.35898 5.5981 3.4251 4.52173 4.30137C1.42448 6.82529 9.6885 13.5193 11.18 9.89883C11.6019 8.87256 9.76116 8.18408 9.29066 8.37685ZM7.50004 13.6898C6.40463 13.6898 5.32681 13.3986 4.38316 12.8473C4.2317 12.7585 4.04859 12.7351 3.87926 12.7811L1.82878 13.3438L2.54303 11.7703C2.6403 11.5562 2.6154 11.3068 2.478 11.1164C1.71394 10.0573 1.30993 8.80693 1.30993 7.5C1.30993 4.08662 4.08668 1.30986 7.50004 1.30986C10.9134 1.30986 13.6899 4.08662 13.6899 7.5C13.6899 10.9131 10.9131 13.6898 7.50004 13.6898ZM7.50004 0C3.36451 0 7.84076e-05 3.36445 7.84076e-05 7.5C7.84076e-05 8.95488 0.413162 10.3521 1.19802 11.5646L0.0586719 14.0739C-0.0465034 14.3057 -0.00812466 14.577 0.156523 14.77C0.283085 14.918 0.466189 15 0.655153 15C1.07761 15 3.38121 14.2761 3.96744 14.1152C5.05113 14.695 6.26665 15 7.50004 15C11.6353 15 15 11.6353 15 7.5C15 3.36445 11.6353 0 7.50004 0Z" />
+                </svg>
+                Hubungi Kami
+              </a>
+            </div>
+          </div>
+          <img class="lazyload" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/helper-files/contact.svg" alt="Kontak">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <div class="float-button" style="z-index: 10;">
+    <button class="whatsapp" onclick="window.open('https://api.whatsapp.com/send?phone=6285117629955', '_blank')">
+      <i class="fab fa-whatsapp"></i>
+    </button>
+  </div>
+
+<script src="https://www.indogold.id/public/tw/vendor/aos/aos.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded",(function(){$(".nav-harga hr").addClass("active-2");lozad(".lozad",{loaded:function(a){a.classList.remove("lozad")}}).observe(),AOS.init({duration:750,easing:"ease-in-out",once:!0,mirror:!0});const a=document.querySelectorAll(".brandButton"),t=document.querySelectorAll(".last-update");let e=!1;const n=$(".table-product-wrapper table"),r=a=>{$(".table-product-wrapper table tbody").html(`<tr><td class="tw-text-center" colspan="100%">${a}</td></tr>`)};async function i(a,t){try{let i=JSON.parse(await o(a,t));if(1==i.status)!function(a){if(a.length<=0||a.list_variant.length<=0)return void r("Tidak ada data");const t=a.list_variant,e=a.type;let i='<thead><tr class="product-variant"><th></th>';t.forEach(((a,t)=>{i+="comparison"==e?`<th>${a}</th>`:`<th colspan="${0==t?"2":""}">${a}</th>`})),i+='\n            </tr>\n                <tr class="product-price table-price">\n                    <td class="sticky-table" width="5%">Pecahan</td>',"comparison"!=e&&(i+="<td>Harga Beli</td>"),t.forEach(((a,t)=>{i+="comparison"==e?"<td>Harga Beli</td>":'\n                            <td class="tw-whitespace-normal">Harga Jual (Buyback)</td>\n                        '})),i+="</tr></thead><tbody>";const o=a.data_denom;Object.keys(o).sort(((a,t)=>parseFloat(a.replace(",",""))-parseFloat(t.replace(",","")))).forEach(((a,n)=>{i+=`\n                    <tr class="table-price">\n                    <td class="sticky-table">${a} Gram</td>\n                `;const r=o[a];t.forEach(((a,t)=>{const n=null!=r[a]?r[a].harga:"-",o=null!=r[a]?r[a].harga_buyback:"-";0==t&&"comparison"!=e&&(i+=`\n                            <td>${n}</td>\n                        `),i+="comparison"==e?`<td>${n}</td>`:`<td>${o}</td>`})),i+="</tr>"})),i+="</tbody>",n.html(i)}(i.data);else{const a=i.error?i.error:"Produk yang dipilih tidak valid.";r(a)}return void(e=!1)}catch(a){return r("Terjadi Kesalahan, mohon refresh halaman dan tunggu beberapa saat lagi..."),void(e=!1)}}let o=(a,t)=>{let e=new FormData;return e.append("form",a),e.append("simulasi-token","389b7564bf0371f782a2ee20eed3ae12"),fetch(t,{method:"POST",body:e}).then((a=>(a.ok,a.text())))};function c(n){a.forEach((a=>a.querySelector(".brand-card").classList.remove("active"))),n.querySelector(".brand-card").classList.add("active");const o=n.getAttribute("data-brand");let c={};c.product=o,e=!0;r("Sedang Mengambil Data..."),i(JSON.stringify(c),"https://www.indogold.id/home/get_data_pricelist"),t.forEach((a=>{n.dataset.lastupdate?(a.style.visibility="visible",a.innerHTML=`Last Update : ${n.dataset.lastupdate}`):a.style.visibility="hidden"}))}async function l(a,t){try{let n=JSON.parse(await o(a,t));return 1==n.status?n.data:(alert("Terjadi Kesalahan, mohon ulangi lagi sesaat lagi..."),void(e=!1))}catch(a){return void(e=!1)}}a.forEach((a=>{a.addEventListener("click",(function(){c(this)}))})),a.length>0&&c(a[0]);const d=document.querySelector("#merk"),s=document.querySelector("#varian"),u=document.querySelector("#pecahan"),h=document.querySelector("a.btn-sm-jual"),p=async()=>{const a=d.value,t=s.value;if(!a||!t)return;let n={};n.product=a,n.variant=t,e=!0;const r=await l(JSON.stringify(n),"https://www.indogold.id/home/get_data_pecahan");if(r.length<=0)return void(u.innerHTML='<option value="">-</option>');let i="";r.forEach((a=>{i+=`<option value="${a.value}">${a.name}</option>`})),u.innerHTML=i,m()},m=async()=>{const a=d.value,t=s.value,n=u.value;if(!a||!t||!n)return;let r={};r.product=a,r.variant=t,r.pecahan=n,e=!0;const i=await l(JSON.stringify(r),"https://www.indogold.id/home/get_data_final");["name","variant","pecahan","bid"].forEach((a=>{document.querySelector(`[data-product-${a}]`).innerHTML=i[a]}));const o=document.querySelector("img[data-product-picture]"),c=i.picture;o.setAttribute("data-src",c),o.removeAttribute("src"),o.classList.remove("lazyloaded"),o.classList.add("lazyload"),o.dispatchEvent(new Event("lazybeforeunveil"));const p=document.querySelector("[data-contact-wa]"),m=`https://wa.me/628118257699?text=${`Hallo%20IndoGold%20saya%20(%20Nama%20Customer%20)%20mau%20buyback%20dengan%20detail%20berikut%20%3A%0ANama%20Produk%20%3A%20${i.name}%0ATipe%20%2F%20Varian%20%3A%20${i.variant}%0APecahan%20%3A%20${i.pecahan}%0AKeterangan%20%3A%20(%20Keterangan%20Produk%20)`}`;p.setAttribute("href",m),h.removeAttribute("disabled")};d.addEventListener("change",(function(){this.value&&(async()=>{const a=d.value;if(!a)return;let t={};t.product=a,e=!0;const n=await l(JSON.stringify(t),"https://www.indogold.id/home/get_data_variant");let r="";n.forEach((a=>{r+=`<option value="${a}">${a}</option>`})),s.innerHTML=r,p(),m()})()})),s.addEventListener("change",(function(){this.value&&p()})),u.addEventListener("change",(function(){this.value&&m()}));document.querySelectorAll("button[type=reset]").forEach((a=>{a.addEventListener("click",(()=>{d.value="",s.innerHTML='<option value="" disabled selected>- Pilih Tipe / Varian -</option>',u.innerHTML='<option value="" disabled selected>- Pilih Pecahan -</option>';["name","variant","pecahan","bid"].forEach((a=>{document.querySelector(`[data-product-${a}]`).innerHTML="-"}));const a=document.querySelector("img[data-product-picture]");a.setAttribute("data-src","https://www.indogold.id/article/no_image.png"),a.removeAttribute("src"),a.classList.remove("lazyloaded"),a.classList.add("lazyload"),a.dispatchEvent(new Event("lazybeforeunveil"));document.querySelector("[data-contact-wa]").setAttribute("href","javascript:void(0)"),h.setAttribute("disabled",!0)}))}));document.querySelectorAll(".share-wrapper .share .socmed ul li a").forEach((a=>{a.addEventListener("click",(function(){!function(){const a=document.querySelector(".table-product-wrapper table"),t=document.querySelector(".brand-card.active");if(!t)return void alert("Maaf, merek tidak ditemukan. Silakan pilih merek terlebih dahulu.");const e=t.getAttribute("data-brand-name"),n=window.location.href;html2canvas(a).then((a=>{a.toBlob((a=>{const t=new File([a],`table_harga_${e}.png`,{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[t]}))navigator.share({title:`Tabel Harga ${e}`,files:[t]}).catch((a=>{alert("Gagal berbagi. Coba metode lain seperti mengunduh gambar dan membagikannya secara manual.")}));else{const a=`https://api.whatsapp.com/send?text=${encodeURIComponent(`Lihat tabel harga terbaru untuk merek ${e}: ${n}`)}`;confirm("Fitur berbagi tidak tersedia di perangkat ini. Ingin membagikan tautan halaman ini?")&&window.open(a,"_blank")}}))})).catch((a=>{alert("Terjadi kesalahan, mohon ulangi sesaat lagi.")}))}()}))}))}));
+</script>    </body>
+<footer>
+    <div id="footer">
+        <div class="break"></div>
+        <div class="footer-group">
+            <div class="footer-main d-flex flex-wrap justify-content-center">
+                <div class="footer__left-side">
+                    <div class="footer__newsletter">
+                        <p class="font-weight-bold">Jadilah yang pertama tahu!</p>
+                        <p>
+                            <font class="font-footerv2 size-14">
+                                Jadilah yang pertama tahu tentang promo dan tips jual beli emas dengan berlangganan newsletter kami
+                            </font>
+                        </p>
+                        <p>
+                            <form id="newsletter" action="https://www.indogold.id/subscribe/T9NN3U87dG1meThua6TMm9Lq4XJsDx2MsHoNL8mZteA" target="_blank" method="post" rel="noopener">
+                                <input type="text" class="newsletter" name="EMAIL" placeholder="Isi Email Anda Disini" aria-label="email newsletter" required>
+                                <button type="submit" class="submit-btn" aria-label="newsletter">
+                                    <i class="fa fa-chevron-right" style="font-size: 1.5rem"></i>
+                                </button>
+                            </form>
+                        </p>
+                    </div>
+                    <div class="footer__media">
+                        <p class="font-weight-bold">Ikuti Kami</p>
+                        <ul class="d-flex list-unstyled">
+                            <li>
+                                <a href="https://www.instagram.com/IndoGoldID/" target="_blank" rel="noopener noreferrer" aria-label="instagram">
+                                    <i class="fab fa-instagram" width="50" height="50"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/channel/UCEuTiVI9x7M2ZSh99x23zMg" target="_blank" rel="noopener noreferrer" aria-label="youtube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://t.me/indogoldinvestclub" target="_blank" rel="noopener noreferrer" aria-label="telegram">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://facebook.com/indogoldindonesia" target="_blank" rel="noopener noreferrer" aria-label="facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <a class="d-flex" href="https://twitter.com/IndoGoldID" target="_blank" rel="noopener noreferrer" aria-label="twitter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#808080}</style><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z"/></svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://vt.tiktok.com/ZSe2CHRoP/" target="_blank" rel="noopener noreferrer" aria-label="twitter">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__download">
+                        <p class="font-weight-bold">Tersedia Di</p>
+                        <div class="download-group d-flex flex-wrap">
+                            <div>
+                                <a href="https://play.google.com/store/apps/details?id=antamgold.android" target="_blank" rel="noopener noreferrer">
+                                    <img class="lazyload" data-src="https://www.indogold.id/template/Assets/img/google-play-badge-id-copy@3x.png" alt="google play" width="150" height="50px">
+                                    <noscript>
+                                        <img class="lazyload" src="https://www.indogold.id/template/Assets/img/google-play-badge-id-copy@3x.png" alt="google play" width="150" height="50px">
+                                    </noscript>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="https://itunes.apple.com/us/app/antamgold.com-mobile/id513376092?mt=8" target="_blank" rel="noopener noreferrer">
+                                    <img class="lazyload" data-src="https://www.indogold.id/template/Assets/img/download-on-the-app-store-badge-id-rgb-blk-100317-copy@3x.png" alt="app store" width="150" height="50px">
+                                    <noscript>
+                                        <img class="lazyload" src="https://www.indogold.id/template/Assets/img/download-on-the-app-store-badge-id-rgb-blk-100317-copy@3x.png" alt="app store" width="150" height="50px">
+                                    </noscript>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__mid-side">
+                    <div class="footer__list w-100">
+                        <div class="list-menu d-flex flex-wrap justify-content-between">
+                            <div class="list-menu__child">
+                                <p class="font-weight-bold">Perusahaan</p>
+                                <ul class="list-group">
+                                    <li>
+                                        <a class="font-gray" href="https://www.indogold.id/about">
+                                            Tentang Kami
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="font-gray" href="https://www.indogold.id/contact#almtig">
+                                            Alamat Perusahaan
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-menu__child">
+                                <p class="font-weight-bold">Layanan</p>
+                                <ul class="list-group">
+                                    <li>
+                                        <a class="font-gray" href="https://www.indogold.id/layanan">
+                                            Rencana Emas
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="font-gray" href="https://www.indogold.id/layanan/gadai">
+                                            Gadai Emas
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-menu__child list-bantuan">
+                                <p class="font-weight-bold">Bantuan</p>
+                                <ul class="list-group">
+                                    <li><a class="font-gray" href="https://www.indogold.id/faq">FAQ</a></li>
+                                    <li><a class="font-gray" href="https://support.indogold.id" target="_blank" rel="noopener">Pusat Bantuan</a></li>
+                                    <li><a class="font-gray" href="https://www.indogold.id/contact">
+                                        Hubungi Kami
+                                    </a></li>
+                                </ul>
+                            </div>
+                            <div class="list-menu__child list-contact">
+                                <p class="font-weight-bold">Kontak Kami</p>
+                                <ul class="list-group">
+                                    <li>
+                                        <font class="font-gray">Jam Operasional</font>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-calendar font-gray"></i>
+                                        <font class="font-gray">
+                                            Senin - Jumat
+                                        </font>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-clock font-gray"></i>
+                                        <font class="font-gray">
+                                            08.30 - 16.00 WIB                                        </font>
+                                    </li>
+                                    <li>
+                                        <font class="font-gray">Call Center</font>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone font-gray"></i>
+                                        <font class="blue">021-59728611</font>
+                                    </li>
+                                    <li>
+                                        <font class="blue">support@indogold.id</font>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-menu__child list-berita">
+                                <p class="font-weight-bold">Berita</p>
+                                <ul class="list-group">
+                                    <li>
+                                        <a class="font-gray" href="https://blog.indogold.id/category/news/">News</a>
+                                    </li>
+                                    <li>
+                                        <a class="font-gray" href="https://blog.indogold.id/category/promo/">Promo</a>
+                                    </li>
+                                    <li>
+                                        <a class="font-gray" href="https://blog.indogold.id/category/emas/">Emas</a>
+                                    </li>
+                                    <li>
+                                        <a class="font-gray" href="https://blog.indogold.id/category/tips-keuangan/">Tips Keuangan</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-menu__child list-komunitas">
+                                <p class="font-weight-bold" role="button" data-toggle="modal" data-target="#komunitasModal">Komunitas</p>
+                                <ul class="list-group">
+                                    <li>
+                                        <a class="font-gray" href="http://bit.ly/indogoldinvestclub" target="_blank">
+                                            Discord
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="font-gray" href="http://t.me/indogoldinvestclub" target="_blank">
+                                            Telegram
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__right-side">
+                    <div class="footer__permission w-100">
+                        <div class="footer__hightlight">
+                            <p class="font-weight-bold text-uppercase size-16">
+                                Berizin dan Diawasi oleh
+                            </p>
+                            <div class="footer__bappebti d-flex">
+                                <img class="lazyload" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/bappebti-vertical.png?x-oss-process=image/resize,h_150,m_lfit" alt="logo bappebti" alt="logo bappebti" width="80" height="100%">
+                                <noscript>
+                                    <img class="lazyload" src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/bappebti-vertical.png?x-oss-process=image/resize,h_150,m_lfit" alt="logo bappebti" width="80" height="100%">
+                                </noscript>
+                                <div class="vertical-line"></div>
+                                <div class="d-flex flex-column bappebti__detail justify-content-center">
+                                    <p class="text-uppercase font-weight-bold text-left m-0">bappebti</p>
+                                    <p class="font-weight-bold text-left m-0">No. SK. 001/BAPPEBTI/P-ED/01/2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer__member">
+                            <p class="font-weight-bold text-uppercase size-16">
+                                Anggota dari
+                                <ul class="footer-icon-group d-flex flex-wrap">
+                                    <li>
+                                        <img class="lazyload" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/logo-icdx-3.png" alt="logo icdx" width="100%" height="40">
+                                        <noscript>
+                                            <img class="lazyload" src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/logo-icdx-3.png" alt="logo icdx" width="100%" height="40">
+                                        </noscript>
+                                    </li>
+
+                                    <li>
+                                        <img class="lazyload" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/logo-ICH.png" alt="ich" width="100%" height="40">
+                                        <noscript>
+                                            <img class="lazyload" src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/logo-ICH.png" alt="ich" width="100%" height="40">
+                                        </noscript>
+                                    </li>
+
+                                    <li>
+                                        <img class="lazyload" data-src="https://www.indogold.id/template/Assets/img/kominfo.png" alt="logo kominfo" width="100%" height="40">
+                                        <noscript>
+                                            <img class="lazyload" src="https://www.indogold.id/template/Assets/img/kominfo.png" alt="logo kominfo" width="100%" height="40">
+                                        </noscript>
+                                    </li>
+                                    
+                                    <li>
+                                        <img class="lazyload" data-src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/sgs1.png" alt="logo iso" width="100%" height="40">
+                                        <noscript>
+                                            <img class="lazyload" src="https://prd-indogold.oss-ap-southeast-5.aliyuncs.com/logo/sgs1.png" alt="logo iso" width="100%" height="40">
+                                        </noscript>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bot mb-3">
+                <div class="footer__desc">
+                    <p class="font-gray">PT Indogold Makmur Sejahtera adalah perusahaan yang terdaftar dan diawasi oleh BAPPEBTI</p>
+                </div>
+                <hr>
+                <div class="footer__rules d-flex justify-content-between flex-wrap">
+                    <div class="copyright font-gray">
+                        Copyright &copy; IndoGold 2023
+                    </div>
+                    <div class="term">
+                        <ul class="list-unstyled d-flex flex-wrap justify-content-center" style="gap:10px">
+                            <li>
+                                <a href="https://www.indogold.id/ketentuan-layanan">
+                                    <font class="font-gray font-weight-bold">Syarat & Ketentuan</font>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.indogold.id/kebijakan-privasi">
+                                    <font class="font-gray font-weight-bold">Kebijakan Privasi</font>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.indogold.id/refund-policy">
+                                    <font class="font-gray font-weight-bold">Refund Policy</font>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.indogold.id/kebijakan-smki">
+                                    <font class="font-gray font-weight-bold">Kebijakan SMKI</font>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.indogold.id/ketentuan-layanan-chatbot">
+                                    <font class="font-gray font-weight-bold">Ketentuan Layanan Chatbot</font>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    $(document).ready(function(){
+
+        document.getElementById("hp_register").style.display = "none";
+        window.onscroll = () => scrollFunction();
+
+        const scrollFunction = function (){
+            let currentScroll = document.body.scrollTop;
+            if(document.body.scrollTop > 10 || document.documentElement.scrollTop > 100){
+                $('.navbar-brand img').attr('src', 'https://www.indogold.id/template/Assets/img/indo-gold-logo-inverse-black.png');
+                document.getElementById("navigasi").style.backgroundColor = "white";
+                $(".font-menu").css('color', 'gray');
+                document.getElementById("btn-nav").style.color = "gray";
+                document.getElementById("hp_register").style.display = "block";
+            }else{
+                $('.navbar-brand img').attr('src', 'https://www.indogold.id/template/Assets/img/indo-gold-logo-inverse.png');
+                document.getElementById("navigasi").style.backgroundColor = "#323232";
+                $(".font-menu").css('color', 'white');
+                document.getElementById("btn-nav").style.color = "gold";
+                document.getElementById("hp_register").style.display = "none";
+            }
+        }
+
+        $('#login').click(function() {
+            $(this).toggleClass('pulsante').toggleClass('pulsanteRimuovi');
+        });
+
+        $('#thumbDown').click(function() {
+            ($(this).css('opacity') == 0.6) ? $(this).css('opacity', '1.0') : $(this).css('opacity', '0.6');
+        });
+    });
+</script>
+
+<script>
+    let collaps = document.getElementsByClassName("collapsible");
+    for (i = 0; i < collaps.length; i++) {
+        collaps[i].addEventListener("click", function() {
+            this.classList.toggle("col-active");
+            let content = this.nextElementSibling;
+            (content.style.maxHeight) ? content.style.maxHeight = null : content.style.maxHeight = content.scrollHeight + "px"
+        });
+    }
+</script>
+
+<script>
+    let coll = document.getElementsByClassName("grafik-2");
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active-grafik");
+            let content = this.nextElementSibling;
+            (content.style.maxHeight) ? content.style.maxHeight = null : content.style.maxHeight = "800px";
+        });
+    }
+    if(document.getElementById("clickgrafik") != null){
+        document.getElementById("clickgrafik").click();
+    }
+</script>
+
+<script>
+    function openNav() {
+        document.getElementById("myNav").style.width = "100%";
+    }
+
+    function closeNav() {
+        document.getElementById("myNav").style.width = "0%";
+    }
+</script>
+
+<!-- Bootstrap 4 -->
+<script defer src="https://www.indogold.id/template/js/bootstrap.bundle.min.js"></script>
+<script defer src="https://www.indogold.id/template/js/jquery.scrolly.min.js"></script>
+<script defer src="https://www.indogold.id/template/js/skel.min.js"></script>
+<script defer src="https://www.indogold.id/template/js/util.js"></script>
+<script defer src="https://www.indogold.id/template/js/main.js"></script>
+<script defer src="https://www.indogold.id/js/jquery-migrate-1.2.1.min.js"></script>
+
+<!-- FANCYBOX -->
+
+<!-- fc css -->
+<link class="css-preload" rel="stylesheet" rel="preload" type="text/css" href="https://www.indogold.id/js/fancybox2/jquery.fancybox.css" media="screen" as="style"/>
+<link class="css-preload" rel="stylesheet" rel="preload" type="text/css" href="https://www.indogold.id/js/fancybox2/helpers/jquery.fancybox-buttons.css" media="screen" as="style"/>
+<link class="css-preload" rel="stylesheet" rel="preload" type="text/css" href="https://www.indogold.id/js/fancybox2/helpers/jquery.fancybox-thumbs.css" media="screen" as="style"/>
+
+<noscript>
+    <link rel="stylesheet" type="text/css" href="https://www.indogold.id/js/fancybox2/jquery.fancybox.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="https://www.indogold.id/js/fancybox2/helpers/jquery.fancybox-buttons.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="https://www.indogold.id/js/fancybox2/helpers/jquery.fancybox-thumbs.css" media="screen" />
+</noscript>
+<!-- !fc css -->
+
+<!-- fancybox js -->
+<script defer type="text/javascript" src="https://www.indogold.id/js/fancybox2/jquery.fancybox.pack.js"></script>
+<script defer type="text/javascript" src="https://www.indogold.id/js/fancybox2/helpers/jquery.fancybox-media.js"></script>
+<script defer type="text/javascript" src="https://www.indogold.id/js/fancybox2/helpers/jquery.fancybox-thumbs.js"></script>
+
+<!-- OWL CAROUSEL -->
+<script defer type="text/javascript" language="javascript" src="https://www.indogold.id/js/owl-carousel/owl.carousel.min.js"></script>
+
+<!-- FLEXSLIDER -->
+<script defer type="text/javascript" language="javascript" src="https://www.indogold.id/js/jquery.flexslider-min.js"></script>
+
+<!-- LAZYLOAD -->
+<script src="https://www.indogold.id/js/lazysizes.min.js" async></script>
+
+<!-- RESPONSIVE IMAGE PLUGIN  -->
+<script src="https://www.indogold.id/js/respimage.min.js" async></script>
+
+<!-- ANTAM JS -->
+<script defer async type='text/javascript' src='https://www.indogold.id/js/antam.js'></script>
+<script defer async type='text/javascript' src='https://www.indogold.id/js/ecommerce.js'></script>
+
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script>
+    // script load css
+    const css = document.getElementsByClassName("css-preload");
+    for(let i = 0; i < css.length; i++){
+        css[i].setAttribute("onload","this.rel='stylesheet'");
+    }
+
+    $(document).ready(function(){
+        $(".owl-carousel").owlCarousel();
+        $('#testimonial').on('slide.bs.carousel', function(e) {
+            let $e = $(e.relatedTarget);
+            let idx = $e.index();
+            let itemsPerSlide = 3;
+            let totalItems = $('.carousel-item').length;
+            if (idx >= totalItems - (itemsPerSlide - 1)) {
+                let it = itemsPerSlide - (totalItems - idx);
+                for(let i = 0; i < it; i++){
+                    (e.direction == "left") ? $('.carousel-item').eq(i).appendTo('.carousel-inner') : $('.carousel-item').eq(0).appendTo('.carousel-inner');
+                }
+            }
+        });
+    });
+</script>
+
+<script defer type="text/javascript" src="https://www.indogold.id/js/intro.js"></script>
+<script type="text/javascript">
+    function setCookie(cname, cvalue, exdays) {
+        let d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    $(document).ready(function() {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [{
+                intro: '<span style="font-size:12px;"><p>Selamat datang di <b>indogold.id</b></p><p><b>indogold.id</b> adalah Situs Jual Beli Emas dan Perak. Klik <b>Next</b> untuk melanjutkan panduan singkat tentang <b>indogold.id</b></p></span>',
+            },
+            //{
+            //    element: '.tourstep1',
+            //    intro: '<span style="font-size:12px;"><p>Untuk dapat melakukan transaksi di <b>indogold.id</b>, Anda harus terlebih dahulu <b>registrasi</b> menjadi member <b>indogold.id</b>, Jika sudah menjadi member silahkan <b>Login</b></p></span>',
+            //    position: 'left'
+            //},
+            {
+                element: '#tourstep2',
+                intro: '<span style="font-size:12px;"><p>Silahkan klik <b>Menu</b> untuk mengakses layanan <b>indogold.id</b>. Secondary Menu juga terdapat di bagian bawah website <b>indogold.id</b></p></span>',
+                position: 'right'
+            },
+            {
+                intro: '<span style="font-size:12px;"><p>Selamat berinvestasi bersama <b>indogold.id</b>. Untuk bantuan silahkan menghubungi kami langsung di <b>(021) - 22292566</b> atau email ke <b>support@indogold.id</b>. Terima kasih</p></span>',
+            },
+            ]
+        });
+    });
+
+//Di-disable dulu sementara dapat email Google to punish popups on mobile per 260816
+//var cookie=getCookie("agsitetour");
+//if (cookie==null || cookie=="") {
+//    setCookie("agsitetour", 1, 30);
+//    intro.start();
+//}
+</script>
+<!-- Google Code for Remarketing Tag -->
+<!-- 
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+-->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    let google_conversion_id = 10785266684;
+    let google_custom_params = window.google_tag_params;
+    let google_remarketing_only = true;
+    /* ]]> */
+</script>
+<script async type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#tribut').on('click', function(){
+            $("#closebtn").css("display", "block");
+            ($('#closebtn').css('opacity') == 0) ? 
+            $('#closebtn').css('opacity', 1) : $('#closebtn').css('opacity', 0);
+        });
+
+        $('#closebtn').on('click', function(){
+            $("#closebtn").css("display", "none");
+            ($('#closebtn').css('opacity') == 0) ?
+            $('#closebtn').css('opacity', 1) : $('#closebtn').css('opacity', 0);
+        });
+    });
+</script>
+
+</body>
+</html>

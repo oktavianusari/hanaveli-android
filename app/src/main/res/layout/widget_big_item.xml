@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_big_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/widget_item_bg_green"
+    android:padding="12dp">
+
+    <!-- Flag/Icon -->
+    <TextView
+        android:id="@+id/item_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Title (e.g. USD/IDR 17,800) -->
+    <TextView
+        android:id="@+id/item_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/widget_text"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <!-- Percent (e.g. + 1,01%) -->
+    <TextView
+        android:id="@+id/item_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/widget_text"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="12dp"
+        android:maxLines="1" />
+
+    <!-- Gain/Loss Pill -->
+    <TextView
+        android:id="@+id/item_gain"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/pill_bg_green"
+        android:maxLines="1" />
+
+</LinearLayout>
