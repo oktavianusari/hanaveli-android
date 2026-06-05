@@ -364,6 +364,26 @@ fun SettingsScreen(viewModel: SettingsViewModel, transactionViewModel: Transacti
             }
         }
 
+        // Fitur Keamanan Widget
+        val enableWidgetShowHide by viewModel.enableWidgetShowHide.collectAsState()
+        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text("Fitur Keamanan Widget (Mata)", style = MaterialTheme.typography.bodyLarge)
+                Text("Sembunyikan/Tampilkan Nominal", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Switch(checked = enableWidgetShowHide, onCheckedChange = { viewModel.updateEnableWidgetShowHide(it) })
+        }
+
+        // Auto Rate BCA
+        val autoRateBca by viewModel.autoRateBca.collectAsState()
+        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text("Auto Rate BCA", style = MaterialTheme.typography.bodyLarge)
+                Text("Jam 09:00 - 15:59 gunakan Rate Beli", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Switch(checked = autoRateBca, onCheckedChange = { viewModel.updateAutoRateBca(it) })
+        }
+
         Text(
             text = stringResource(R.string.color_customization),
             style = MaterialTheme.typography.titleMedium,

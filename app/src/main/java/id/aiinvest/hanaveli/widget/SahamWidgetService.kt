@@ -88,7 +88,8 @@ class SahamWidgetFactory(private val context: Context) : RemoteViewsService.Remo
         rv.setTextViewText(R.id.item_currency, stock.symbol)
         
         val sharedPreferences = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
-        val isSensitiveVisible = sharedPreferences.getBoolean("widget_is_sensitive_visible", false)
+        val enableShowHide = sharedPreferences.getBoolean("enable_widget_show_hide", true)
+        val isSensitiveVisible = if (!enableShowHide) true else sharedPreferences.getBoolean("widget_is_sensitive_visible", false)
         if (isSensitiveVisible) {
             rv.setTextViewText(R.id.item_rate, String.format("%,.2f", stock.price))
             val percentText = if (stock.changePercent >= 0) String.format("+%.2f%%", stock.changePercent) else String.format("%.2f%%", stock.changePercent)

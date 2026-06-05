@@ -53,8 +53,14 @@ class ValasWidgetProvider : AppWidgetProvider() {
             val togglePendingIntent = PendingIntent.getBroadcast(context, 0, toggleIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.widget_toggle_sensitive, togglePendingIntent)
             
-            val isSensitive = prefs.getBoolean("widget_is_sensitive_visible", false)
-            views.setImageViewResource(R.id.widget_toggle_sensitive, if (isSensitive) R.drawable.ic_eye_open else R.drawable.ic_eye_closed)
+            val enableShowHide = prefs.getBoolean("enable_widget_show_hide", true)
+            if (!enableShowHide) {
+                views.setViewVisibility(R.id.widget_toggle_sensitive, android.view.View.GONE)
+            } else {
+                views.setViewVisibility(R.id.widget_toggle_sensitive, android.view.View.VISIBLE)
+                val isSensitive = prefs.getBoolean("widget_is_sensitive_visible", false)
+                views.setImageViewResource(R.id.widget_toggle_sensitive, if (isSensitive) R.drawable.ic_eye_open else R.drawable.ic_eye_closed)
+            }
 
             val appTheme = prefs.getString("app_theme", "system") ?: "system"
             
@@ -91,7 +97,7 @@ class ValasWidgetProvider : AppWidgetProvider() {
                 views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
             }
 
-            val titleStr = "Portofolio Anda Hari Ini"
+            val titleStr = "Valas Hari Ini"
             views.setTextViewText(R.id.widget_title, titleStr)
             
             val bcaLastUpdated = prefs.getString("bca_last_updated", "") ?: ""
@@ -145,7 +151,7 @@ class ValasWidgetProvider : AppWidgetProvider() {
             
             if (!isVisible) {
                 val workRequest = androidx.work.OneTimeWorkRequestBuilder<id.aiinvest.hanaveli.worker.WidgetHideWorker>()
-                    .setInitialDelay(1, java.util.concurrent.TimeUnit.MINUTES)
+                    .setInitialDelay(30, java.util.concurrent.TimeUnit.SECONDS)
                     .build()
                 androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(
                     "WidgetHideWork",

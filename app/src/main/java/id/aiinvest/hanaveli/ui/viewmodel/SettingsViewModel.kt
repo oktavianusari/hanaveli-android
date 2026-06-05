@@ -76,6 +76,12 @@ class SettingsViewModel(private val context: Context) : ViewModel() {
     private val _widgetOpacity = MutableStateFlow(prefs.getFloat("widget_opacity", 0.5f))
     val widgetOpacity: StateFlow<Float> = _widgetOpacity.asStateFlow()
 
+    private val _enableWidgetShowHide = MutableStateFlow(prefs.getBoolean("enable_widget_show_hide", true))
+    val enableWidgetShowHide: StateFlow<Boolean> = _enableWidgetShowHide.asStateFlow()
+
+    private val _autoRateBca = MutableStateFlow(prefs.getBoolean("auto_rate_bca", false))
+    val autoRateBca: StateFlow<Boolean> = _autoRateBca.asStateFlow()
+
     fun updateWidgetSettings(override: Boolean, bgHex: String, opacity: Float) {
         prefs.edit {
             putBoolean("override_widget_color", override)
@@ -137,6 +143,39 @@ class SettingsViewModel(private val context: Context) : ViewModel() {
         prefs.edit { putString("emas_rate_direction", direction) }
         _emasRateDirection.value = direction
         
+        val refreshIntent = android.content.Intent(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java).apply {
+            action = id.aiinvest.hanaveli.widget.ValasWidgetProvider.ACTION_REFRESH
+        }
+        context.sendBroadcast(refreshIntent)
+    }
+
+    fun updateEnableWidgetShowHide(enabled: Boolean) {
+        prefs.edit { putBoolean("enable_widget_show_hide", enabled) }
+        _enableWidgetShowHide.value = enabled
+        
+        // Refresh Widgets to apply visibility changes
+        val valasIntent = android.content.Intent(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java).apply {
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val appWidgetManager = android.appwidget.AppWidgetManager.getInstance(context)
+            val ids = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java))
+            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        context.sendBroadcast(valasIntent)
+        
+        val sahamIntent = android.content.Intent(context, id.aiinvest.hanaveli.widget.SahamWidgetProvider::class.java).apply {
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val appWidgetManager = android.appwidget.AppWidgetManager.getInstance(context)
+            val ids = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, id.aiinvest.hanaveli.widget.SahamWidgetProvider::class.java))
+            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        context.sendBroadcast(sahamIntent)
+    }
+
+    fun updateAutoRateBca(enabled: Boolean) {
+        prefs.edit { putBoolean("auto_rate_bca", enabled) }
+        _autoRateBca.value = enabled
+        
+        // Refresh widget immediately to apply rate changes if any
         val refreshIntent = android.content.Intent(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java).apply {
             action = id.aiinvest.hanaveli.widget.ValasWidgetProvider.ACTION_REFRESH
         }

@@ -106,8 +106,19 @@ class ValasRepository(
                 }
                 editor.apply()
                 
-                val rateDirection = prefs.getString("rate_direction", "jual") ?: "jual"
+                val autoRateBca = prefs.getBoolean("auto_rate_bca", false)
+                var rateDirection = prefs.getString("rate_direction", "jual") ?: "jual"
                 
+                if (autoRateBca) {
+                    val hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)
+                    // Jam 9 pagi sampai 15:59 sore menggunakan rate Buy
+                    if (hour in 9..15) {
+                        rateDirection = "beli"
+                    } else {
+                        rateDirection = "jual"
+                    }
+                }
+
                 val localCurrencies = monitoredCurrencyDao.getAllMonitoredCurrenciesSync()
                 val updatedCurrencies = localCurrencies.map { currency ->
                     val rateInfo = scrapedRates[currency.currency]

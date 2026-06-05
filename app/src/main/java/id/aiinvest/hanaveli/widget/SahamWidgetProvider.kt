@@ -49,8 +49,14 @@ class SahamWidgetProvider : AppWidgetProvider() {
             val togglePendingIntent = PendingIntent.getBroadcast(context, 0, toggleIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.widget_toggle_sensitive, togglePendingIntent)
             
-            val isSensitive = sharedPreferences.getBoolean("widget_is_sensitive_visible", false)
-            views.setImageViewResource(R.id.widget_toggle_sensitive, if (isSensitive) R.drawable.ic_eye_open else R.drawable.ic_eye_closed)
+            val enableShowHide = sharedPreferences.getBoolean("enable_widget_show_hide", true)
+            if (!enableShowHide) {
+                views.setViewVisibility(R.id.widget_toggle_sensitive, android.view.View.GONE)
+            } else {
+                views.setViewVisibility(R.id.widget_toggle_sensitive, android.view.View.VISIBLE)
+                val isSensitive = sharedPreferences.getBoolean("widget_is_sensitive_visible", false)
+                views.setImageViewResource(R.id.widget_toggle_sensitive, if (isSensitive) R.drawable.ic_eye_open else R.drawable.ic_eye_closed)
+            }
 
             val appTheme = sharedPreferences.getString("app_theme", "system") ?: "system"
             val isOverride = sharedPreferences.getBoolean("override_widget_color", false)
@@ -126,7 +132,7 @@ class SahamWidgetProvider : AppWidgetProvider() {
             
             if (!isVisible) {
                 val workRequest = androidx.work.OneTimeWorkRequestBuilder<id.aiinvest.hanaveli.worker.WidgetHideWorker>()
-                    .setInitialDelay(1, java.util.concurrent.TimeUnit.MINUTES)
+                    .setInitialDelay(30, java.util.concurrent.TimeUnit.SECONDS)
                     .build()
                 androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(
                     "WidgetHideWork",

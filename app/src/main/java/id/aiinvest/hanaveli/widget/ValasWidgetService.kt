@@ -50,7 +50,8 @@ class ValasWidgetRemoteViewsFactory(private val context: Context) : RemoteViewsS
         val views = RemoteViews(context.packageName, R.layout.widget_list_item)
         views.setTextViewText(R.id.item_currency, "$emoji ${currency.currencyCode}")
         val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
-        val isSensitiveVisible = prefs.getBoolean("widget_is_sensitive_visible", false)
+        val enableShowHide = prefs.getBoolean("enable_widget_show_hide", true)
+        val isSensitiveVisible = if (!enableShowHide) true else prefs.getBoolean("widget_is_sensitive_visible", false)
         if (isSensitiveVisible) {
             views.setTextViewText(R.id.item_rate, String.format("IDR %,.2f", currency.currentRate))
             
