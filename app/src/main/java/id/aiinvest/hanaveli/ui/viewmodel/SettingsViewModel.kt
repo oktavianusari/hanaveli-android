@@ -8,6 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import android.content.SharedPreferences
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 class SettingsViewModel(private val context: Context) : ViewModel() {
     private val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
@@ -180,6 +184,25 @@ class SettingsViewModel(private val context: Context) : ViewModel() {
         _darkPrimaryHex.value = primary
         _darkSecondaryHex.value = secondary
         _darkTextHex.value = text
+    }
+
+    private val _isSensitiveDataVisible = MutableStateFlow(false)
+    val isSensitiveDataVisible: StateFlow<Boolean> = _isSensitiveDataVisible.asStateFlow()
+    
+    private var visibilityJob: Job? = null
+
+    fun toggleSensitiveDataVisibility() {
+        val newState = !_isSensitiveDataVisible.value
+        _isSensitiveDataVisible.value = newState
+        
+        visibilityJob?.cancel()
+        
+        if (newState) {
+            visibilityJob = viewModelScope.launch {
+                delay(60000)
+                _isSensitiveDataVisible.value = false
+            }
+        }
     }
 }
 

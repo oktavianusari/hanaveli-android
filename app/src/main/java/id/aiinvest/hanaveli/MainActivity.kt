@@ -21,6 +21,11 @@ import id.aiinvest.hanaveli.ui.viewmodel.SettingsViewModel
 import id.aiinvest.hanaveli.ui.viewmodel.SettingsViewModelFactory
 import id.aiinvest.hanaveli.ui.viewmodel.TransactionViewModel
 import id.aiinvest.hanaveli.ui.viewmodel.TransactionViewModelFactory
+import id.aiinvest.hanaveli.ui.viewmodel.SahamViewModel
+import id.aiinvest.hanaveli.ui.viewmodel.SahamViewModelFactory
+import id.aiinvest.hanaveli.ui.viewmodel.RiwayatSahamViewModel
+import id.aiinvest.hanaveli.ui.viewmodel.RiwayatSahamViewModelFactory
+import id.aiinvest.hanaveli.data.repository.StockRepository
 import java.util.Locale
 
 object LocaleHelper {
@@ -87,10 +92,21 @@ class MainActivity : ComponentActivity() {
                     val transactionViewModel: TransactionViewModel = viewModel(
                         factory = TransactionViewModelFactory(database.transactionDao())
                     )
+                    
+                    val stockRepository = StockRepository(database.stockDao())
+                    val sahamViewModel: SahamViewModel = viewModel(
+                        factory = SahamViewModelFactory(stockRepository)
+                    )
+
+                    val riwayatSahamViewModel: RiwayatSahamViewModel = viewModel(
+                        factory = RiwayatSahamViewModelFactory(database.sahamTransactionDao())
+                    )
 
                     MainScreen(
                         monitorViewModel = monitorViewModel,
+                        sahamViewModel = sahamViewModel,
                         transactionViewModel = transactionViewModel,
+                        riwayatSahamViewModel = riwayatSahamViewModel,
                         settingsViewModel = settingsViewModel
                     )
                 }

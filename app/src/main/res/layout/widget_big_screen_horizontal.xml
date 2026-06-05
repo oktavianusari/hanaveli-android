@@ -26,7 +26,7 @@
             android:id="@+id/widget_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Portofolio Anda Hari Ini"
+            android:text="Valas Hari Ini"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/widget_text" />

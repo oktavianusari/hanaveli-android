@@ -66,5 +66,35 @@
                 android:resource="@xml/widget_big_horizontal_info" />
         </receiver>
 
+        <receiver
+            android:name=".widget.SahamWidgetProvider"
+            android:label="@string/widget_saham_phone_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="id.aiinvest.hanaveli.widget.ACTION_REFRESH_SAHAM" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_saham_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.SahamWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver
+            android:name=".widget.SahamHorizontalWidgetProvider"
+            android:label="@string/widget_saham_horizontal_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="id.aiinvest.hanaveli.widget.ACTION_REFRESH_SAHAM_HORIZONTAL" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_saham_horizontal_info" />
+        </receiver>
+
     </application>
 </manifest>

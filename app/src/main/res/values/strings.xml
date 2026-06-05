@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Monitor Valas</string>
+    <string name="app_name">Hanaveli Monitor</string>
     
     <!-- Monitor Screen -->
-    <string name="monitor_title">Monitor Valas</string>
+    <string name="monitor_title">Valas</string>
+    <string name="saham_title">Saham</string>
     <string name="add_currency">Tambah Valas</string>
     <string name="rate">Kurs:</string>
     <string name="gain">Gain:</string>
@@ -45,6 +46,9 @@
     <string name="theme_dark">Gelap (Dark)</string>
     <string name="bca_rate_type">Jenis Kurs BCA</string>
     <string name="sync_interval">Interval Sinkronisasi</string>
+    <string name="sync_15_menit">Tiap 15 Menit</string>
+    <string name="sync_30_menit">Tiap 30 Menit</string>
+    <string name="sync_45_menit">Tiap 45 Menit</string>
     <string name="sync_1x_sehari">1x Sehari (24 Jam)</string>
     <string name="sync_2x_sehari">2x Sehari (12 Jam)</string>
     <string name="sync_4x_sehari">4x Sehari (6 Jam)</string>
@@ -62,9 +66,11 @@
     <string name="last_refresh">Terakhir update: %1$s</string>
     <string name="empty_widget">Tidak ada valas yang dimonitor</string>
     <string name="widget_title">Monitor Valuta Asing</string>
-    <string name="widget_phone_name">Phone Widget</string>
-    <string name="widget_big_name">Big Screen Vertical</string>
-    <string name="widget_big_horizontal_name">Big Screen Horizontal</string>
+    <string name="widget_phone_name">Valas Phone</string>
+    <string name="widget_big_name">Valas Vertical TV</string>
+    <string name="widget_big_horizontal_name">Valas TV Horizontal</string>
+    <string name="widget_saham_phone_name">Saham Smartphone</string>
+    <string name="widget_saham_horizontal_name">Saham Horizontal TV</string>
     <string name="monitor_title_dynamic">Kurs %1$s BCA Hari Ini</string>
     <string name="rate_direction">Posisi Kurs (BCA)</string>
     <string name="emas_rate_direction">Patokan Harga Emas (Indogold)</string>

@@ -7,23 +7,22 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import id.aiinvest.hanaveli.MainActivity
 import id.aiinvest.hanaveli.R
 
-class BigValasWidgetProvider : AppWidgetProvider() {
+class SahamHorizontalWidgetProvider : AppWidgetProvider() {
     companion object {
-        const val ACTION_REFRESH = "id.aiinvest.hanaveli.widget.ACTION_REFRESH_BIG"
+        const val ACTION_REFRESH = "id.aiinvest.hanaveli.widget.ACTION_REFRESH_SAHAM_HORIZONTAL"
 
         fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            val views = RemoteViews(context.packageName, R.layout.widget_big_screen)
+            val views = RemoteViews(context.packageName, R.layout.widget_saham_horizontal)
             
-            val intent = Intent(context, BigWidgetService::class.java).apply {
+            val intent = Intent(context, SahamWidgetService::class.java).apply {
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
             }
 
+            // Note: Uses the same SahamWidgetService because the item layout is the same!
             views.setRemoteAdapter(R.id.widget_grid, intent)
             views.setEmptyView(R.id.widget_grid, R.id.widget_empty_view)
 
@@ -34,16 +33,14 @@ class BigValasWidgetProvider : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.widget_empty_view, pendingIntent)
             views.setPendingIntentTemplate(R.id.widget_grid, pendingIntent)
 
-            val refreshIntent = Intent(context, BigValasWidgetProvider::class.java).apply {
+            val refreshIntent = Intent(context, SahamHorizontalWidgetProvider::class.java).apply {
                 action = ACTION_REFRESH
             }
             val refreshPendingIntent = PendingIntent.getBroadcast(context, 0, refreshIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.widget_refresh_button, refreshPendingIntent)
             
-            val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
-            val appTheme = prefs.getString("app_theme", "system") ?: "system"
-            
             val sharedPreferences = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+            val appTheme = sharedPreferences.getString("app_theme", "system") ?: "system"
             val isOverride = sharedPreferences.getBoolean("override_widget_color", false)
 
             var finalBgColor = android.graphics.Color.parseColor("#151517")
@@ -72,33 +69,18 @@ class BigValasWidgetProvider : AppWidgetProvider() {
             if (isDark) {
                 views.setTextColor(R.id.widget_title, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_dark))
                 views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_dark))
+                views.setTextColor(R.id.widget_empty_view, android.graphics.Color.WHITE)
             } else {
                 views.setTextColor(R.id.widget_title, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
                 views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
+                views.setTextColor(R.id.widget_empty_view, android.graphics.Color.BLACK)
             }
-
-            val titleStr = "Portofolio Anda Hari Ini"
-            views.setTextViewText(R.id.widget_title, titleStr)
             
-            val bcaLastUpdated = sharedPreferences.getString("bca_last_updated", "") ?: ""
-            val pegadaianLastUpdated = sharedPreferences.getString("pegadaian_last_updated", "") ?: ""
-            
-            if (bcaLastUpdated.isNotEmpty() || pegadaianLastUpdated.isNotEmpty()) {
-                val rawBca = bcaLastUpdated.replace(Regex("(?i)^bca\\s*:?\\s*"), "").trim()
-                val bcaStr = if (rawBca.isNotEmpty()) "BCA: $rawBca" else "BCA: -"
-                val rawIndogold = pegadaianLastUpdated.replace(Regex("(?i)^indogold\\s*:?\\s*"), "").trim()
-                val indogoldStr = if (rawIndogold.isNotEmpty()) "Indogold: $rawIndogold" else "Indogold: -"
-                val combinedText = "$bcaStr\n$indogoldStr"
-                views.setTextViewText(R.id.widget_timestamp, combinedText)
+            val sahamLastUpdated = sharedPreferences.getString("saham_last_updated", "") ?: ""
+            if (sahamLastUpdated.isNotEmpty()) {
+                views.setTextViewText(R.id.widget_timestamp, "Yahoo Finance: $sahamLastUpdated")
             } else {
-                val lastSync = sharedPreferences.getLong("last_sync_timestamp", 0L)
-                if (lastSync > 0) {
-                    val dateStr = java.text.SimpleDateFormat("dd MMM HH:mm", java.util.Locale.getDefault()).format(java.util.Date(lastSync))
-                    val formatStr = context.getString(R.string.last_refresh)
-                    views.setTextViewText(R.id.widget_timestamp, String.format(formatStr, dateStr))
-                } else {
-                    views.setTextViewText(R.id.widget_timestamp, "")
-                }
+                views.setTextViewText(R.id.widget_timestamp, "Menunggu Sinkronisasi...")
             }
 
             views.setViewVisibility(R.id.widget_refresh_button, android.view.View.VISIBLE)
@@ -113,17 +95,22 @@ class BigValasWidgetProvider : AppWidgetProvider() {
         super.onReceive(context, intent)
         if (intent.action == ACTION_REFRESH) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
-            val componentName = android.content.ComponentName(context, BigValasWidgetProvider::class.java)
+            val componentName = android.content.ComponentName(context, SahamHorizontalWidgetProvider::class.java)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
 
             for (appWidgetId in appWidgetIds) {
-                val views = RemoteViews(context.packageName, R.layout.widget_big_screen)
+                val views = RemoteViews(context.packageName, R.layout.widget_saham_horizontal)
                 views.setViewVisibility(R.id.widget_refresh_button, android.view.View.GONE)
                 views.setViewVisibility(R.id.widget_progress_bar, android.view.View.VISIBLE)
                 appWidgetManager.updateAppWidget(appWidgetId, views)
             }
 
             id.aiinvest.hanaveli.worker.SyncWorker.enqueueImmediate(context)
+        } else if (intent.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val componentName = android.content.ComponentName(context, SahamHorizontalWidgetProvider::class.java)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
+            onUpdate(context, appWidgetManager, appWidgetIds)
         }
     }
 

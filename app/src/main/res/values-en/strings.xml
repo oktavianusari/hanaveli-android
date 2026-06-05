@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Valas Monitor</string>
+    <string name="app_name">Hanaveli Monitor</string>
     
     <!-- Monitor Screen -->
-    <string name="monitor_title">Monitor</string>
+    <string name="monitor_title">Valas</string>
     <string name="add_currency">Add Currency</string>
     <string name="rate">Rate:</string>
     <string name="gain">Gain:</string>
@@ -60,9 +60,12 @@
     <!-- Widget -->
     <string name="last_refresh">Last refresh: %1$s</string>
     <string name="empty_widget">No currencies monitored</string>
-    <string name="widget_title">Foreign Exchange Monitor</string>
-    <string name="widget_phone_name">Phone Widget</string>
-    <string name="widget_big_name">Big Screen Widget</string>
+    <string name="widget_title">Valas Hari Ini</string>
+    <string name="widget_phone_name">Valas Phone</string>
+    <string name="widget_big_name">Valas Vertical TV</string>
+    <string name="widget_big_horizontal_name">Valas Horizontal TV</string>
+    <string name="widget_saham_phone_name">Saham Smartphone</string>
+    <string name="widget_saham_horizontal_name">Saham Horizontal TV</string>
     <string name="rate_direction">Rate Position (BCA)</string>
     <string name="emas_rate_direction">Gold Rate Position (Indogold)</string>
     <string name="rate_sell">Sell</string>

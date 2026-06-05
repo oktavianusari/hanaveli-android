@@ -60,10 +60,20 @@ class BigWidgetRemoteViewsFactory(private val context: Context) : RemoteViewsSer
         // Bendera emoji
         views.setTextViewText(R.id.item_flag, emoji)
         
-        // Title Harga
-        views.setTextViewText(R.id.item_rate, "${currency.currencyCode}/IDR ${String.format("%,.0f", currency.currentRate).replace(',', '.')}")
-
         val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+        val isSensitiveVisible = prefs.getBoolean("widget_is_sensitive_visible", false)
+        
+        if (isSensitiveVisible) {
+            views.setTextViewText(R.id.item_rate, "${currency.currencyCode}/IDR ${String.format("%,.0f", currency.currentRate).replace(',', '.')}")
+            val percentText = if (percentChange >= 0) String.format("+ %.2f%%", percentChange).replace('.', ',') else String.format("- %.2f%%", -percentChange).replace('.', ',')
+            views.setTextViewText(R.id.item_percent, percentText)
+            val gainText = if (isGreen) "+ Rp${String.format("%,.0f", currency.totalGain).replace(',', '.')} (${String.format("%.1f", gainPercent).replace('.', ',')}%)" else "- Rp${String.format("%,.0f", -currency.totalGain).replace(',', '.')} (${String.format("%.1f", -gainPercent).replace('.', ',')}%)"
+            views.setTextViewText(R.id.item_gain, gainText)
+        } else {
+            views.setTextViewText(R.id.item_rate, "${currency.currencyCode}/IDR ----")
+            views.setTextViewText(R.id.item_percent, "----%")
+            views.setTextViewText(R.id.item_gain, "Rp ----")
+        }
         val appTheme = prefs.getString("app_theme", "system") ?: "system"
         val isOverride = prefs.getBoolean("override_widget_color", false)
         val isDark = if (isOverride) {
@@ -86,13 +96,7 @@ class BigWidgetRemoteViewsFactory(private val context: Context) : RemoteViewsSer
         val textColor = androidx.core.content.ContextCompat.getColor(context, if (isDark) R.color.widget_text_dark else R.color.widget_text_light)
         views.setTextColor(R.id.item_rate, textColor)
         
-        // Percent Harian
-        val percentText = if (percentChange >= 0) String.format("+ %.2f%%", percentChange).replace('.', ',') else String.format("- %.2f%%", -percentChange).replace('.', ',')
-        views.setTextViewText(R.id.item_percent, percentText)
-        
-        // Gain Pill
-        val gainText = if (isGreen) "+ Rp${String.format("%,.0f", currency.totalGain).replace(',', '.')} (${String.format("%.1f", gainPercent).replace('.', ',')}%)" else "- Rp${String.format("%,.0f", -currency.totalGain).replace(',', '.')} (${String.format("%.1f", -gainPercent).replace('.', ',')}%)"
-        views.setTextViewText(R.id.item_gain, gainText)
+        // Gain Pill Logic Only
         views.setInt(R.id.item_gain, "setBackgroundResource", if (isGreen) R.drawable.pill_bg_green else R.drawable.pill_bg_red)
 
         val fillInIntent = Intent().apply {

@@ -14,7 +14,7 @@ import java.util.Locale
 
 class BigHorizontalWidgetProvider : AppWidgetProvider() {
     companion object {
-        const val ACTION_REFRESH = "id.aiinvest.hanaveli.widget.ACTION_REFRESH_HORIZONTAL"
+        const val ACTION_REFRESH = "id.aiinvest.hanaveli.widget.ACTION_REFRESH_BIG_HORIZONTAL"
     }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
@@ -34,15 +34,15 @@ class BigHorizontalWidgetProvider : AppWidgetProvider() {
             val refreshPendingIntent = PendingIntent.getBroadcast(context, 0, refreshIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.widget_refresh_button, refreshPendingIntent)
             
-            val sharedPreferences = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
-            val appTheme = sharedPreferences.getString("app_theme", "system") ?: "system"
+            val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+            val appTheme = prefs.getString("app_theme", "system") ?: "system"
             
-            val isOverride = sharedPreferences.getBoolean("override_widget_color", false)
+            val isOverride = prefs.getBoolean("override_widget_color", false)
 
             var finalBgColor = android.graphics.Color.parseColor("#151517")
             val isDark = if (isOverride) {
-                val hex = sharedPreferences.getString("widget_bg_hex", "#000000") ?: "#000000"
-                val opacity = sharedPreferences.getFloat("widget_opacity", 0.5f)
+                val hex = prefs.getString("widget_bg_hex", "#000000") ?: "#000000"
+                val opacity = prefs.getFloat("widget_opacity", 0.5f)
                 val parsedColor = try { android.graphics.Color.parseColor(hex) } catch(e: Exception) { android.graphics.Color.BLACK }
                 val alphaInt = (opacity * 255).toInt()
                 finalBgColor = (parsedColor and 0x00FFFFFF) or (alphaInt shl 24)
@@ -73,8 +73,8 @@ class BigHorizontalWidgetProvider : AppWidgetProvider() {
             val titleStr = "Portofolio Anda Hari Ini"
             views.setTextViewText(R.id.widget_title, titleStr)
             
-            val bcaLastUpdated = sharedPreferences.getString("bca_last_updated", "") ?: ""
-            val pegadaianLastUpdated = sharedPreferences.getString("pegadaian_last_updated", "") ?: ""
+            val bcaLastUpdated = prefs.getString("bca_last_updated", "") ?: ""
+            val pegadaianLastUpdated = prefs.getString("pegadaian_last_updated", "") ?: ""
             
             if (bcaLastUpdated.isNotEmpty() || pegadaianLastUpdated.isNotEmpty()) {
                 val rawBca = bcaLastUpdated.replace(Regex("(?i)^bca\\s*:?\\s*"), "").trim()
@@ -84,7 +84,7 @@ class BigHorizontalWidgetProvider : AppWidgetProvider() {
                 val combinedText = "$bcaStr\n$indogoldStr"
                 views.setTextViewText(R.id.widget_timestamp, combinedText)
             } else {
-                val lastSync = sharedPreferences.getLong("last_sync_timestamp", 0L)
+                val lastSync = prefs.getLong("last_sync_timestamp", 0L)
                 if (lastSync > 0) {
                     val dateStr = java.text.SimpleDateFormat("dd MMM HH:mm", java.util.Locale.getDefault()).format(java.util.Date(lastSync))
                     val formatStr = context.getString(R.string.last_refresh)
@@ -124,8 +124,7 @@ class BigHorizontalWidgetProvider : AppWidgetProvider() {
                 appWidgetManager.updateAppWidget(appWidgetId, views)
             }
 
-            val syncRequest = androidx.work.OneTimeWorkRequestBuilder<id.aiinvest.hanaveli.worker.SyncWorker>().build()
-            androidx.work.WorkManager.getInstance(context).enqueue(syncRequest)
+            id.aiinvest.hanaveli.worker.SyncWorker.enqueueImmediate(context)
         } else if (intent.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val componentName = android.content.ComponentName(context, BigHorizontalWidgetProvider::class.java)

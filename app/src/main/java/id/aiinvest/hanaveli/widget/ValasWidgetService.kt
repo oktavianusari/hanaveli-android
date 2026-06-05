@@ -49,9 +49,24 @@ class ValasWidgetRemoteViewsFactory(private val context: Context) : RemoteViewsS
         
         val views = RemoteViews(context.packageName, R.layout.widget_list_item)
         views.setTextViewText(R.id.item_currency, "$emoji ${currency.currencyCode}")
-        views.setTextViewText(R.id.item_rate, String.format("IDR %,.2f", currency.currentRate))
-
         val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+        val isSensitiveVisible = prefs.getBoolean("widget_is_sensitive_visible", false)
+        if (isSensitiveVisible) {
+            views.setTextViewText(R.id.item_rate, String.format("IDR %,.2f", currency.currentRate))
+            
+            val gainPercent = if (currency.totalCost > 0) (currency.totalGain / currency.totalCost) * 100 else 0.0
+            val gainText = if (currency.totalGain >= 0) "+Rp${String.format("%,.0f", currency.totalGain).replace(',', '.')} (+${String.format("%.1f", gainPercent).replace('.', ',')}%)" else "-Rp${String.format("%,.0f", -currency.totalGain).replace(',', '.')} (${String.format("%.1f", -gainPercent).replace('.', ',')}%)"
+            views.setTextViewText(R.id.item_gain, gainText)
+            
+            val percentChange = if (currency.baseRateToday > 0) ((currency.currentRate - currency.baseRateToday) / currency.baseRateToday) * 100 else 0.0
+            val percentText = if (percentChange >= 0) String.format("+%.2f%%", percentChange) else String.format("%.2f%%", percentChange)
+            views.setTextViewText(R.id.item_percent, percentText)
+        } else {
+            views.setTextViewText(R.id.item_rate, "----")
+            views.setTextViewText(R.id.item_gain, "Rp ----")
+            views.setTextViewText(R.id.item_percent, "----%")
+        }
+
         val appTheme = prefs.getString("app_theme", "system") ?: "system"
         val isOverride = prefs.getBoolean("override_widget_color", false)
         val isDark = if (isOverride) {
@@ -74,19 +89,12 @@ class ValasWidgetRemoteViewsFactory(private val context: Context) : RemoteViewsS
         val textColor = androidx.core.content.ContextCompat.getColor(context, if (isDark) R.color.widget_text_dark else R.color.widget_text_light)
         views.setTextColor(R.id.item_currency, textColor)
         views.setTextColor(R.id.item_rate, textColor)
-        
-        val gainPercent = if (currency.totalCost > 0) (currency.totalGain / currency.totalCost) * 100 else 0.0
-        val gainText = if (currency.totalGain >= 0) "+Rp${String.format("%,.0f", currency.totalGain).replace(',', '.')} (+${String.format("%.1f", gainPercent).replace('.', ',')}%)" else "-Rp${String.format("%,.0f", -currency.totalGain).replace(',', '.')} (${String.format("%.1f", -gainPercent).replace('.', ',')}%)"
-        views.setTextViewText(R.id.item_gain, gainText)
-        
+
         val gainBgResource = if (currency.totalGain >= 0) R.drawable.bg_pill_gain else R.drawable.bg_pill_loss
         views.setInt(R.id.item_gain, "setBackgroundResource", gainBgResource)
 
-        val percentChange = if (currency.baseRateToday > 0) ((currency.currentRate - currency.baseRateToday) / currency.baseRateToday) * 100 else 0.0
-        val percentText = if (percentChange >= 0) String.format("+%.2f%%", percentChange) else String.format("%.2f%%", percentChange)
-        val percentTextColor = if (percentChange >= 0) android.graphics.Color.parseColor("#388E3C") else android.graphics.Color.parseColor("#D32F2F")
-        
-        views.setTextViewText(R.id.item_percent, percentText)
+        val percentChangeForColor = if (currency.baseRateToday > 0) ((currency.currentRate - currency.baseRateToday) / currency.baseRateToday) * 100 else 0.0
+        val percentTextColor = if (percentChangeForColor >= 0) android.graphics.Color.parseColor("#388E3C") else android.graphics.Color.parseColor("#D32F2F")
         views.setTextColor(R.id.item_percent, percentTextColor)
 
         val fillInIntent = Intent().apply {

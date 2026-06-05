@@ -36,6 +36,8 @@ class MonitorViewModel(
                 )
             }
             currencyDao.updateMonitoredCurrencies(updated)
+            // Memanggil repo untuk trigger widget update
+            repository.notifyWidgetsUpdated()
         }
     }
 

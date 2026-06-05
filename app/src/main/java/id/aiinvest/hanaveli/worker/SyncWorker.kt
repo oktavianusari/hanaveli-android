@@ -10,6 +10,9 @@ import id.aiinvest.hanaveli.data.repository.ValasRepository
 import id.aiinvest.hanaveli.widget.ValasWidgetProvider
 import id.aiinvest.hanaveli.widget.BigValasWidgetProvider
 import id.aiinvest.hanaveli.widget.BigHorizontalWidgetProvider
+import id.aiinvest.hanaveli.widget.SahamWidgetProvider
+import id.aiinvest.hanaveli.widget.SahamHorizontalWidgetProvider
+import id.aiinvest.hanaveli.data.repository.StockRepository
 import id.aiinvest.hanaveli.R
 
 class SyncWorker(
@@ -26,6 +29,10 @@ class SyncWorker(
             val rateType = prefs.getString("rate_type", "e-rate") ?: "e-rate"
             
             repository.syncRates(rateType)
+            
+            // Sync Stocks
+            val stockRepository = StockRepository(database.stockDao(), context)
+            stockRepository.syncAllStocks()
             
             // Update widget after successful sync
             val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -62,6 +69,28 @@ class SyncWorker(
             context.sendBroadcast(bigHorizontalUpdateIntent)
             appWidgetManager.notifyAppWidgetViewDataChanged(bigHorizontalAppWidgetIds, R.id.widget_grid)
             
+            // Update Saham Widget
+            val sahamAppWidgetIds = appWidgetManager.getAppWidgetIds(
+                ComponentName(context, SahamWidgetProvider::class.java)
+            )
+            val sahamUpdateIntent = android.content.Intent(context, SahamWidgetProvider::class.java).apply {
+                action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, sahamAppWidgetIds)
+            }
+            context.sendBroadcast(sahamUpdateIntent)
+            appWidgetManager.notifyAppWidgetViewDataChanged(sahamAppWidgetIds, R.id.widget_list)
+            
+            // Update Saham Horizontal Widget
+            val sahamHorizontalAppWidgetIds = appWidgetManager.getAppWidgetIds(
+                ComponentName(context, SahamHorizontalWidgetProvider::class.java)
+            )
+            val sahamHorizontalUpdateIntent = android.content.Intent(context, SahamHorizontalWidgetProvider::class.java).apply {
+                action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, sahamHorizontalAppWidgetIds)
+            }
+            context.sendBroadcast(sahamHorizontalUpdateIntent)
+            appWidgetManager.notifyAppWidgetViewDataChanged(sahamHorizontalAppWidgetIds, R.id.widget_grid)
+            
             Result.success()
         } catch (e: Exception) {
             Result.retry()
@@ -84,6 +113,22 @@ class SyncWorker(
             androidx.work.WorkManager.getInstance(context).enqueueUniquePeriodicWork(
                 "ValasSyncWork",
                 androidx.work.ExistingPeriodicWorkPolicy.UPDATE,
+                workRequest
+            )
+        }
+
+        fun enqueueImmediate(context: Context) {
+            val constraints = androidx.work.Constraints.Builder()
+                .setRequiredNetworkType(androidx.work.NetworkType.CONNECTED)
+                .build()
+
+            val workRequest = androidx.work.OneTimeWorkRequestBuilder<SyncWorker>()
+                .setConstraints(constraints)
+                .build()
+
+            androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(
+                "ValasSyncWorkImmediate",
+                androidx.work.ExistingWorkPolicy.REPLACE,
                 workRequest
             )
         }

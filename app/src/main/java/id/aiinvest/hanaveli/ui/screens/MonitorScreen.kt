@@ -21,6 +21,8 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.TopAppBar
@@ -74,6 +76,7 @@ fun MonitorScreen(
     val pegadaianLastUpdated by settingsViewModel.pegadaianLastUpdated.collectAsState()
     val isLoading by monitorViewModel.isLoading.collectAsState()
     val rateType by settingsViewModel.rateType.collectAsState()
+    val isSensitiveDataVisible by settingsViewModel.isSensitiveDataVisible.collectAsState()
     
     var showAddDialog by remember { mutableStateOf(false) }
     var menuExpandedFor by remember { mutableStateOf<String?>(null) }
@@ -89,9 +92,12 @@ fun MonitorScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Portofolio Anda Hari Ini") },
+                title = { Text("Valas Hari Ini") },
                 windowInsets = androidx.compose.foundation.layout.WindowInsets(0.dp),
                 actions = {
+                    IconButton(onClick = { settingsViewModel.toggleSensitiveDataVisibility() }) {
+                        Icon(if (isSensitiveDataVisible) Icons.Filled.Clear else Icons.Filled.Lock, contentDescription = "Toggle Visibility")
+                    }
                     IconButton(
                         onClick = { monitorViewModel.forceRefreshRates(rateType) },
                         enabled = !isLoading
@@ -176,7 +182,7 @@ fun MonitorScreen(
                                             fontWeight = FontWeight.Bold
                                         )
                                         val gainPercent = if (c.totalCost > 0) (c.totalGain / c.totalCost) * 100 else 0.0
-                                        val gainText = if (c.totalGain >= 0) "+ Rp${String.format("%,.0f", c.totalGain).replace(',', '.')} (+${String.format("%.1f", gainPercent).replace('.', ',')}%)" else "- Rp${String.format("%,.0f", -c.totalGain).replace(',', '.')} (${String.format("%.1f", -gainPercent).replace('.', ',')}%)"
+                                        val gainText = if (!isSensitiveDataVisible) "Rp ---- (----%)" else if (c.totalGain >= 0) "+ Rp${String.format("%,.0f", c.totalGain).replace(',', '.')} (+${String.format("%.1f", gainPercent).replace('.', ',')}%)" else "- Rp${String.format("%,.0f", -c.totalGain).replace(',', '.')} (${String.format("%.1f", -gainPercent).replace('.', ',')}%)"
                                         val gainLabel = if (c.totalGain >= 0) "G" else "L"
                                         val gainColor = if (c.totalGain >= 0) Color(0xFF388E3C) else Color(0xFFD32F2F)
                                         Text(

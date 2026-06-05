@@ -152,4 +152,38 @@ class ValasRepository(
             }
         }
     }
+
+    fun notifyWidgetsUpdated() {
+        val appWidgetManager = android.appwidget.AppWidgetManager.getInstance(context)
+        
+        val valasIds = appWidgetManager.getAppWidgetIds(
+            android.content.ComponentName(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java)
+        )
+        val updateIntent1 = android.content.Intent(context, id.aiinvest.hanaveli.widget.ValasWidgetProvider::class.java).apply {
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, valasIds)
+        }
+        context.sendBroadcast(updateIntent1)
+        appWidgetManager.notifyAppWidgetViewDataChanged(valasIds, id.aiinvest.hanaveli.R.id.widget_list)
+
+        val valasHorizontalIds = appWidgetManager.getAppWidgetIds(
+            android.content.ComponentName(context, id.aiinvest.hanaveli.widget.BigHorizontalWidgetProvider::class.java)
+        )
+        val updateIntent2 = android.content.Intent(context, id.aiinvest.hanaveli.widget.BigHorizontalWidgetProvider::class.java).apply {
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, valasHorizontalIds)
+        }
+        context.sendBroadcast(updateIntent2)
+        appWidgetManager.notifyAppWidgetViewDataChanged(valasHorizontalIds, id.aiinvest.hanaveli.R.id.widget_grid)
+        
+        val valasBigIds = appWidgetManager.getAppWidgetIds(
+            android.content.ComponentName(context, id.aiinvest.hanaveli.widget.BigValasWidgetProvider::class.java)
+        )
+        val updateIntent3 = android.content.Intent(context, id.aiinvest.hanaveli.widget.BigValasWidgetProvider::class.java).apply {
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, valasBigIds)
+        }
+        context.sendBroadcast(updateIntent3)
+        appWidgetManager.notifyAppWidgetViewDataChanged(valasBigIds, id.aiinvest.hanaveli.R.id.widget_list)
+    }
 }

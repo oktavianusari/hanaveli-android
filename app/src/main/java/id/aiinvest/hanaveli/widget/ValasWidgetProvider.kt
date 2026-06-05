@@ -15,6 +15,7 @@ import id.aiinvest.hanaveli.R
 class ValasWidgetProvider : AppWidgetProvider() {
     companion object {
         const val ACTION_REFRESH = "id.aiinvest.hanaveli.widget.ACTION_REFRESH"
+        const val ACTION_TOGGLE_SENSITIVE = "id.aiinvest.hanaveli.widget.ACTION_TOGGLE_SENSITIVE_VALAS"
 
         fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
             val views = RemoteViews(context.packageName, R.layout.widget_valas_monitor)
@@ -45,6 +46,16 @@ class ValasWidgetProvider : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.widget_refresh_button, refreshPendingIntent)
             
             val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+
+            val toggleIntent = Intent(context, ValasWidgetProvider::class.java).apply {
+                action = ACTION_TOGGLE_SENSITIVE
+            }
+            val togglePendingIntent = PendingIntent.getBroadcast(context, 0, toggleIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            views.setOnClickPendingIntent(R.id.widget_toggle_sensitive, togglePendingIntent)
+            
+            val isSensitive = prefs.getBoolean("widget_is_sensitive_visible", false)
+            views.setImageViewResource(R.id.widget_toggle_sensitive, if (isSensitive) R.drawable.ic_eye_open else R.drawable.ic_eye_closed)
+
             val appTheme = prefs.getString("app_theme", "system") ?: "system"
             
             val isOverride = prefs.getBoolean("override_widget_color", false)
@@ -126,8 +137,30 @@ class ValasWidgetProvider : AppWidgetProvider() {
                 appWidgetManager.updateAppWidget(appWidgetId, views)
             }
 
-            val syncRequest = OneTimeWorkRequestBuilder<id.aiinvest.hanaveli.worker.SyncWorker>().build()
-            WorkManager.getInstance(context).enqueue(syncRequest)
+            id.aiinvest.hanaveli.worker.SyncWorker.enqueueImmediate(context)
+        } else if (intent.action == ACTION_TOGGLE_SENSITIVE) {
+            val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+            val isVisible = prefs.getBoolean("widget_is_sensitive_visible", false)
+            prefs.edit().putBoolean("widget_is_sensitive_visible", !isVisible).apply()
+            
+            if (!isVisible) {
+                val workRequest = androidx.work.OneTimeWorkRequestBuilder<id.aiinvest.hanaveli.worker.WidgetHideWorker>()
+                    .setInitialDelay(1, java.util.concurrent.TimeUnit.MINUTES)
+                    .build()
+                androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(
+                    "WidgetHideWork",
+                    androidx.work.ExistingWorkPolicy.REPLACE,
+                    workRequest
+                )
+            } else {
+                androidx.work.WorkManager.getInstance(context).cancelUniqueWork("WidgetHideWork")
+            }
+            
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val componentName = android.content.ComponentName(context, ValasWidgetProvider::class.java)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
+            onUpdate(context, appWidgetManager, appWidgetIds)
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list)
         }
     }
 

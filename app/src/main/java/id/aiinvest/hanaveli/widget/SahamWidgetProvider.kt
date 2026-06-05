@@ -12,38 +12,47 @@ import androidx.work.WorkManager
 import id.aiinvest.hanaveli.MainActivity
 import id.aiinvest.hanaveli.R
 
-class BigValasWidgetProvider : AppWidgetProvider() {
+class SahamWidgetProvider : AppWidgetProvider() {
     companion object {
-        const val ACTION_REFRESH = "id.aiinvest.hanaveli.widget.ACTION_REFRESH_BIG"
+        const val ACTION_REFRESH = "id.aiinvest.hanaveli.widget.ACTION_REFRESH_SAHAM"
+        const val ACTION_TOGGLE_SENSITIVE = "id.aiinvest.hanaveli.widget.ACTION_TOGGLE_SENSITIVE_SAHAM"
 
         fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            val views = RemoteViews(context.packageName, R.layout.widget_big_screen)
+            val views = RemoteViews(context.packageName, R.layout.widget_saham)
             
-            val intent = Intent(context, BigWidgetService::class.java).apply {
+            val intent = Intent(context, SahamWidgetService::class.java).apply {
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
             }
 
-            views.setRemoteAdapter(R.id.widget_grid, intent)
-            views.setEmptyView(R.id.widget_grid, R.id.widget_empty_view)
+            views.setRemoteAdapter(R.id.widget_list, intent)
+            views.setEmptyView(R.id.widget_list, R.id.widget_empty_view)
 
             val appIntent = Intent(context, MainActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.widget_title, pendingIntent)
             views.setOnClickPendingIntent(R.id.widget_root, pendingIntent)
             views.setOnClickPendingIntent(R.id.widget_empty_view, pendingIntent)
-            views.setPendingIntentTemplate(R.id.widget_grid, pendingIntent)
+            views.setPendingIntentTemplate(R.id.widget_list, pendingIntent)
 
-            val refreshIntent = Intent(context, BigValasWidgetProvider::class.java).apply {
+            val refreshIntent = Intent(context, SahamWidgetProvider::class.java).apply {
                 action = ACTION_REFRESH
             }
             val refreshPendingIntent = PendingIntent.getBroadcast(context, 0, refreshIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.widget_refresh_button, refreshPendingIntent)
             
-            val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
-            val appTheme = prefs.getString("app_theme", "system") ?: "system"
-            
             val sharedPreferences = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+
+            val toggleIntent = Intent(context, SahamWidgetProvider::class.java).apply {
+                action = ACTION_TOGGLE_SENSITIVE
+            }
+            val togglePendingIntent = PendingIntent.getBroadcast(context, 0, toggleIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            views.setOnClickPendingIntent(R.id.widget_toggle_sensitive, togglePendingIntent)
+            
+            val isSensitive = sharedPreferences.getBoolean("widget_is_sensitive_visible", false)
+            views.setImageViewResource(R.id.widget_toggle_sensitive, if (isSensitive) R.drawable.ic_eye_open else R.drawable.ic_eye_closed)
+
+            val appTheme = sharedPreferences.getString("app_theme", "system") ?: "system"
             val isOverride = sharedPreferences.getBoolean("override_widget_color", false)
 
             var finalBgColor = android.graphics.Color.parseColor("#151517")
@@ -72,40 +81,25 @@ class BigValasWidgetProvider : AppWidgetProvider() {
             if (isDark) {
                 views.setTextColor(R.id.widget_title, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_dark))
                 views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_dark))
+                views.setTextColor(R.id.widget_empty_view, android.graphics.Color.WHITE)
             } else {
                 views.setTextColor(R.id.widget_title, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
                 views.setTextColor(R.id.widget_timestamp, androidx.core.content.ContextCompat.getColor(context, R.color.widget_text_light))
+                views.setTextColor(R.id.widget_empty_view, android.graphics.Color.BLACK)
             }
-
-            val titleStr = "Portofolio Anda Hari Ini"
-            views.setTextViewText(R.id.widget_title, titleStr)
             
-            val bcaLastUpdated = sharedPreferences.getString("bca_last_updated", "") ?: ""
-            val pegadaianLastUpdated = sharedPreferences.getString("pegadaian_last_updated", "") ?: ""
-            
-            if (bcaLastUpdated.isNotEmpty() || pegadaianLastUpdated.isNotEmpty()) {
-                val rawBca = bcaLastUpdated.replace(Regex("(?i)^bca\\s*:?\\s*"), "").trim()
-                val bcaStr = if (rawBca.isNotEmpty()) "BCA: $rawBca" else "BCA: -"
-                val rawIndogold = pegadaianLastUpdated.replace(Regex("(?i)^indogold\\s*:?\\s*"), "").trim()
-                val indogoldStr = if (rawIndogold.isNotEmpty()) "Indogold: $rawIndogold" else "Indogold: -"
-                val combinedText = "$bcaStr\n$indogoldStr"
-                views.setTextViewText(R.id.widget_timestamp, combinedText)
+            val sahamLastUpdated = sharedPreferences.getString("saham_last_updated", "") ?: ""
+            if (sahamLastUpdated.isNotEmpty()) {
+                views.setTextViewText(R.id.widget_timestamp, "Yahoo Finance: $sahamLastUpdated")
             } else {
-                val lastSync = sharedPreferences.getLong("last_sync_timestamp", 0L)
-                if (lastSync > 0) {
-                    val dateStr = java.text.SimpleDateFormat("dd MMM HH:mm", java.util.Locale.getDefault()).format(java.util.Date(lastSync))
-                    val formatStr = context.getString(R.string.last_refresh)
-                    views.setTextViewText(R.id.widget_timestamp, String.format(formatStr, dateStr))
-                } else {
-                    views.setTextViewText(R.id.widget_timestamp, "")
-                }
+                views.setTextViewText(R.id.widget_timestamp, "Menunggu Sinkronisasi...")
             }
 
             views.setViewVisibility(R.id.widget_refresh_button, android.view.View.VISIBLE)
             views.setViewVisibility(R.id.widget_progress_bar, android.view.View.GONE)
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_grid)
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list)
         }
     }
 
@@ -113,17 +107,46 @@ class BigValasWidgetProvider : AppWidgetProvider() {
         super.onReceive(context, intent)
         if (intent.action == ACTION_REFRESH) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
-            val componentName = android.content.ComponentName(context, BigValasWidgetProvider::class.java)
+            val componentName = android.content.ComponentName(context, SahamWidgetProvider::class.java)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
 
             for (appWidgetId in appWidgetIds) {
-                val views = RemoteViews(context.packageName, R.layout.widget_big_screen)
+                val views = RemoteViews(context.packageName, R.layout.widget_saham)
                 views.setViewVisibility(R.id.widget_refresh_button, android.view.View.GONE)
                 views.setViewVisibility(R.id.widget_progress_bar, android.view.View.VISIBLE)
                 appWidgetManager.updateAppWidget(appWidgetId, views)
             }
 
+            // Gunakan OneTimeWorkRequest untuk immediate fetch
             id.aiinvest.hanaveli.worker.SyncWorker.enqueueImmediate(context)
+        } else if (intent.action == ACTION_TOGGLE_SENSITIVE) {
+            val prefs = context.getSharedPreferences("valas_settings", Context.MODE_PRIVATE)
+            val isVisible = prefs.getBoolean("widget_is_sensitive_visible", false)
+            prefs.edit().putBoolean("widget_is_sensitive_visible", !isVisible).apply()
+            
+            if (!isVisible) {
+                val workRequest = androidx.work.OneTimeWorkRequestBuilder<id.aiinvest.hanaveli.worker.WidgetHideWorker>()
+                    .setInitialDelay(1, java.util.concurrent.TimeUnit.MINUTES)
+                    .build()
+                androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(
+                    "WidgetHideWork",
+                    androidx.work.ExistingWorkPolicy.REPLACE,
+                    workRequest
+                )
+            } else {
+                androidx.work.WorkManager.getInstance(context).cancelUniqueWork("WidgetHideWork")
+            }
+            
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val componentName = android.content.ComponentName(context, SahamWidgetProvider::class.java)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
+            onUpdate(context, appWidgetManager, appWidgetIds)
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list)
+        } else if (intent.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val componentName = android.content.ComponentName(context, SahamWidgetProvider::class.java)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
+            onUpdate(context, appWidgetManager, appWidgetIds)
         }
     }
 
